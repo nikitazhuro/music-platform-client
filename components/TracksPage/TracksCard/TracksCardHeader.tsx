@@ -1,4 +1,4 @@
-import { Button, Grid } from "@mui/material";
+import { Box, Button, Grid } from "@mui/material";
 import { Container } from "@mui/system";
 import { useRouter } from "next/router";
 
@@ -8,12 +8,14 @@ function TracksCardHeader() {
   const router = useRouter();
 
   return (
-    <Grid container justifyContent="space-between">
-      <HeaderTitle title="Track list" />
-      <Button onClick={() => router.push('/tracks/create')}>
-        Загрузить
-      </Button>
-    </Grid>
+    <Box pb={3}>
+      <Grid container justifyContent="space-between">
+        <HeaderTitle title="Track list" />
+        <Button onClick={() => router.push('/tracks/create')}>
+          Загрузить
+        </Button>
+      </Grid>
+    </Box>
   )
 }
 
