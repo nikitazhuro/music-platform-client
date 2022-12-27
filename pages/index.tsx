@@ -1,23 +1,10 @@
 import { Button } from "@mui/material"
+import NavBarLayout from "../components/Layouts/NavBarLayout"
 
 export default function Home() {
   return (
-    <>
-      <div>
-        <h4>
-          Welcome
-        </h4>
-        <div className="mainPage">
-          awdawdawdawdawdawd
-        </div>
-      </div>
-      <style jsx>
-        {`
-          .mainPage {
-            color: red;
-          }
-        `}
-      </style>
-    </>
+    <NavBarLayout>
+      MAIN
+    </NavBarLayout>
   )
 }
