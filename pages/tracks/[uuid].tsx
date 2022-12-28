@@ -1,12 +1,13 @@
+import { Card, Grid, Box } from '@mui/material';
+
 import classes from '../../styles/trackPage.module.scss';
 
 import NavBarLayout from "../../components/Layouts/NavBarLayout";
-import GoBackBlock from "../../components/TrackPage/GoBackBlock";
-import { Card, Grid } from '@mui/material';
+import GoBackBlock from "../../components/PagesComponents/TrackPage/GoBackBlock";
+import TrackPageHeader from '../../components/PagesComponents/TrackPage/TrackPageHeader';
+import CreateCommentBlock from '../../components/PagesComponents/TrackPage/CreateCommentBlock';
+
 import { ITrack } from '../../types/track';
-import TrackPageHeader from '../../components/TrackPage/TrackPageHeader';
-import { Box } from '@mui/system';
-import CreateCommentBlock from '../../components/TrackPage/CreateCommentBlock';
 
 function TrackPage() {
   const track: ITrack = {

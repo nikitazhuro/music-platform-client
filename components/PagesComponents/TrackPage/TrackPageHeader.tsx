@@ -1,8 +1,9 @@
 import { Grid } from "@mui/material";
 import { Box } from "@mui/system";
 import Image from "next/image";
-import { ITrack } from "../../types/track";
-import HeaderTitle from "../UI/Title/HeaderTitle";
+
+import { ITrack } from "../../../types/track";
+import HeaderTitle from "../../UI/Title/HeaderTitle";
 
 interface ITrackPageHeader {
   track: ITrack;

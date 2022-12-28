@@ -1,13 +1,13 @@
-import { Box, Card, Grid, IconButton } from "@mui/material"
+import { Box, Card, Grid } from "@mui/material"
 import { PlayArrow, Pause, Delete } from '@mui/icons-material'
 import React from "react";
+import { useRouter } from "next/router";
 
-import Avatar from "../../../UI/Avatar/Avatar";
-import CustomIconButton from "../../../UI/IconButton/CustomIconButton";
+import Avatar from "../../../../UI/Avatar/Avatar";
+import CustomIconButton from "../../../../UI/IconButton/CustomIconButton";
 import TrackTitle from "./TrackTitle";
 
-import { ITrack } from "../../../../types/track";
-import { useRouter } from "next/router";
+import { ITrack } from "../../../../../types/track";
 
 interface ITrackItemProps {
   track: ITrack,

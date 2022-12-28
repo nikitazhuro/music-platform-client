@@ -1,13 +1,11 @@
-import { Button, Card, Grid, TextField } from "@mui/material";
+import { Button, Card, Grid, TextField, Box } from "@mui/material";
 import React, { useState } from 'react';
-import { Box } from "@mui/system";
 
 import classes from '../../styles/trackCreatePage.module.scss';
 
-import StepsWrapper from "../../components/CreateTrackPage/StepsWrapper";
+import StepsWrapper from "../../components/PagesComponents/CreateTrackPage/StepsWrapper";
 import NavBarLayout from "../../components/Layouts/NavBarLayout";
-import CreatePageControls from "../../components/CreateTrackPage/CreatePageControls";
-import { FileUpload } from "@mui/icons-material";
+import CreatePageControls from "../../components/PagesComponents/CreateTrackPage/CreatePageControls";
 import FileUploader from "../../components/UI/FileUploader";
 
 function TrackCreatePage() {

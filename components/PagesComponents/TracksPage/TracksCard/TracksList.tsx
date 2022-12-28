@@ -1,6 +1,8 @@
 import { Box, Grid } from "@mui/material";
-import { ITrack } from "../../../types/track";
+
 import TrackItem from "./TrackItem/TrackItem";
+
+import { ITrack } from "../../../../types/track";
 
 function TracksList() {
   const tracks: Array<ITrack> = [

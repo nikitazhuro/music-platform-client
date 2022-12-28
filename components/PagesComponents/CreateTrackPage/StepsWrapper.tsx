@@ -1,5 +1,5 @@
-import { Button, Card, Grid, Step, StepLabel, Stepper } from "@mui/material";
-import { Box, Container } from "@mui/system";
+import { Grid, Step, StepLabel, Stepper } from "@mui/material";
+import { Container } from "@mui/system";
 
 interface IStepsWrapper {
   children: React.ReactNode;
