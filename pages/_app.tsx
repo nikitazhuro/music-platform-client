@@ -1,7 +1,15 @@
+import React from 'react';
+import { AppProps } from 'next/app';
+
 import '../styles/global.css';
 
-import type { AppProps } from 'next/app'
+import { wrapper } from '../store';
 
-export default function App({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />
+class MyApp extends React.Component<AppProps> {
+  render() {
+    const { Component, pageProps } = this.props;
+    return <Component {...pageProps} />;
+  }
 }
+
+export default wrapper.withRedux(MyApp);

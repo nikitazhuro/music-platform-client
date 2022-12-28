@@ -8,6 +8,9 @@ import PlayerProgress from './PlayerProgress';
 import CustomIconButton from '../../UI/IconButton/CustomIconButton';
 
 import { ITrack } from '../../../types/track';
+import { useTypedSelector } from '../../../hooks/typedHooks/useTypedSelector';
+import { useTypedDispatch } from '../../../hooks/typedHooks/useTypedDispatch';
+import { setPaused } from '../../../store/reducers/slices/playerSlice';
 
 const StyledFab = styled(Fab)({
   position: 'absolute',
@@ -19,17 +22,31 @@ const StyledFab = styled(Fab)({
 });
 
 export default function Player() {
-  const isActive = false;
+  const { paused } = useTypedSelector((state) => state.player);
+  const dispatch = useTypedDispatch();
+
   const track: ITrack = {
     uuid: '1', name: 'Track1', artist: 'Alfred', listens: 0, audio: '', image: 'http://localhost:3001/image/25e457e1-37cf-432d-a780-cd6d4f26519b.jpg', comments: []
+  }
+
+  const play = (e: React.MouseEvent) => {
+    e.stopPropagation();
+
+    dispatch(setPaused(false))
+  }
+
+  const pause = (e: React.MouseEvent) => {
+    e.stopPropagation();
+
+    dispatch(setPaused(true))
   }
   return (
     <React.Fragment>
       <CssBaseline />
       <AppBar position="fixed" color="default" sx={{ top: 'auto', bottom: 0 }}>
         <Box p={1} display="flex" alignItems="center">
-          <CustomIconButton size="medium">
-            {isActive
+          <CustomIconButton onClick={paused ? play : pause} size="medium">
+            {paused
               ? (
                 <Pause />
               )
