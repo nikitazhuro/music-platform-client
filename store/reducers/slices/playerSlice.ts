@@ -39,12 +39,8 @@ const playerSlice = createSlice({
   }
 })
 
-export const {
-  setActiveTrack,
-  setCurrentTime,
-  setDuration,
-  setPaused,
-  setVolume,
-} = playerSlice.actions;
+export const playerSliceActions = playerSlice.actions;
+
+
 
 export default playerSlice.reducer;

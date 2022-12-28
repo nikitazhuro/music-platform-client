@@ -9,8 +9,7 @@ import CustomIconButton from '../../UI/IconButton/CustomIconButton';
 
 import { ITrack } from '../../../types/track';
 import { useTypedSelector } from '../../../hooks/typedHooks/useTypedSelector';
-import { useTypedDispatch } from '../../../hooks/typedHooks/useTypedDispatch';
-import { setPaused } from '../../../store/reducers/slices/playerSlice';
+import { useActions } from '../../../hooks/useActions';
 
 const StyledFab = styled(Fab)({
   position: 'absolute',
@@ -21,25 +20,39 @@ const StyledFab = styled(Fab)({
   margin: '0 auto',
 });
 
+let audio: any;
+
 export default function Player() {
   const { paused } = useTypedSelector((state) => state.player);
-  const dispatch = useTypedDispatch();
+  const { setPaused } = useActions();
 
   const track: ITrack = {
-    uuid: '1', name: 'Track1', artist: 'Alfred', listens: 0, audio: '', image: 'http://localhost:3001/image/25e457e1-37cf-432d-a780-cd6d4f26519b.jpg', comments: []
+    uuid: '1', name: 'Track1', artist: 'Alfred', listens: 0, audio: 'http://localhost:3001/audio/1ed0896e-ffa4-40c0-95cf-f63ca821e7be.mp3', image: 'http://localhost:3001/image/25e457e1-37cf-432d-a780-cd6d4f26519b.jpg', comments: []
   }
 
   const play = (e: React.MouseEvent) => {
     e.stopPropagation();
 
-    dispatch(setPaused(false))
+    setPaused(false)
+
+    audio.play();
   }
 
   const pause = (e: React.MouseEvent) => {
     e.stopPropagation();
 
-    dispatch(setPaused(true))
+    setPaused(true)
+
+    audio.pause();
   }
+
+  React.useEffect(() => {
+    if (!audio) {
+      audio = new Audio();
+
+      audio.src = track.audio;
+    }
+  }, [])
   return (
     <React.Fragment>
       <CssBaseline />
