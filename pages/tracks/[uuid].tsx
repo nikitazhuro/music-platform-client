@@ -6,6 +6,7 @@ import { Card, Grid } from '@mui/material';
 import { ITrack } from '../../types/track';
 import TrackPageHeader from '../../components/TrackPage/TrackPageHeader';
 import { Box } from '@mui/system';
+import CreateCommentBlock from '../../components/TrackPage/CreateCommentBlock';
 
 function TrackPage() {
   const track: ITrack = {
@@ -13,12 +14,15 @@ function TrackPage() {
   }
   return (
     <NavBarLayout>
-      <Grid className={classes.trackPage}>
+      <Grid mb={2} className={classes.trackPage}>
         <GoBackBlock />
       </Grid>
       <Card>
         <Box p={3}>
           <TrackPageHeader track={track} />
+        </Box>
+        <Box p={3}>
+          <CreateCommentBlock />
         </Box>
       </Card>
     </NavBarLayout>

@@ -13,6 +13,7 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import { useRouter } from 'next/router';
+import { MusicNote } from '@mui/icons-material';
 
 const pages = [
   { title: 'Main', href: '/' },
@@ -37,12 +38,12 @@ function NavBar() {
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+          <MusicNote sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
           <Typography
             variant="h6"
             noWrap
             component="a"
-            href="/"
+            onClick={() => router.push('/')}
             sx={{
               mr: 2,
               display: { xs: 'none', md: 'flex' },
@@ -50,10 +51,11 @@ function NavBar() {
               fontWeight: 700,
               letterSpacing: '.3rem',
               color: 'inherit',
+              cursor: 'pointer',
               textDecoration: 'none',
             }}
           >
-            LOGO
+            Music platform
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
