@@ -47,7 +47,7 @@ const TrackItem: React.FC<ITrackItemProps> = ({
                 )}
             </CustomIconButton>
             <Box mr={2} ml={1}>
-              <Avatar src={track.image} width={70} height={70} />
+              <Avatar src={'http://localhost:3001/' + track.image} width={70} height={70} />
             </Box>
             <TrackTitle trackName={track.name} artist={track.artist} />
           </Box>

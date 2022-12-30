@@ -40,8 +40,8 @@ export default function Player() {
   }
 
   const initAudio = () => {
-    if (activeTrack) {
-      audio.src = activeTrack.audio;
+    if (activeTrack && 'http://localhost:3001/' + activeTrack.audio !== audio.src) {
+      audio.src = 'http://localhost:3001/' + activeTrack.audio;
       audio.volume = volume / 100;
 
       audio.onloadedmetadata = () => {
@@ -51,6 +51,8 @@ export default function Player() {
       audio.ontimeupdate = () => {
         setCurrentTime(audio.currentTime)
       }
+
+      play();
     }
   };
 
@@ -59,7 +61,6 @@ export default function Player() {
       audio = new Audio();
     } else {
       initAudio();
-      play();
     }
   }, [activeTrack])
 
@@ -80,7 +81,7 @@ export default function Player() {
               )}
           </CustomIconButton>
           <Box display="flex" alignItems="center" mr={2} ml={1}>
-            <Avatar src={activeTrack?.image} width={50} height={50} />
+            <Avatar src={'http://localhost:3001/' + activeTrack?.image} width={50} height={50} />
           </Box>
           <TrackTitle trackName={activeTrack?.name} artist={activeTrack?.artist} />
           <Box sx={{ flexGrow: 1 }} />

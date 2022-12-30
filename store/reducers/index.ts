@@ -1,23 +1,15 @@
 import { combineReducers, PayloadAction } from "@reduxjs/toolkit";
 import { HYDRATE } from "next-redux-wrapper";
 
+//API
+import { tracksAPI } from './../../API/tracksAPI';
+
+//SLICES
 import playerSlice from "./slices/playerSlice";
 
 export const reducer = combineReducers({
   player: playerSlice,
+  [tracksAPI.reducerPath]: tracksAPI.reducer,
 })
-
-export const rootReducer = (state: any, action: PayloadAction<object, string>) => {
-  if (action.type === HYDRATE) {
-    const nextState = {
-      ...state, // use previous state
-      ...action.payload, // apply delta from hydration
-    };
-    if (state.count) nextState.count = state.count; // preserve count value on client side navigation
-    return nextState;
-  } else {
-    return reducer(state, action);
-  }
-};
 
 export type RootState = ReturnType<typeof reducer>;

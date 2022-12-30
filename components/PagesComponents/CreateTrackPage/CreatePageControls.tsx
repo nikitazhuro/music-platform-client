@@ -2,11 +2,13 @@ import { Button, Grid } from "@mui/material";
 
 interface ICreatePageControls {
   activeStep: number;
+  createTrack: () => void;
   setActiveStep: React.Dispatch<React.SetStateAction<number>>;
 }
 
 const CreatePageControls: React.FC<ICreatePageControls> = ({
   setActiveStep,
+  createTrack,
   activeStep,
 }) => {
   const backHandler = () => {
@@ -27,9 +29,6 @@ const CreatePageControls: React.FC<ICreatePageControls> = ({
     })
   }
 
-  const createTrack = () => {
-
-  }
   return (
     <Grid container justifyContent="space-between" px={5} pb={5}>
       <Button disabled={activeStep === 0} onClick={backHandler}>

@@ -7,13 +7,34 @@ import StepsWrapper from "../../components/PagesComponents/CreateTrackPage/Steps
 import NavBarLayout from "../../components/Layouts/NavBarLayout";
 import CreatePageControls from "../../components/PagesComponents/CreateTrackPage/CreatePageControls";
 import FileUploader from "../../components/UI/FileUploader";
+import { useCreateTrackMutation } from "../../API/tracksAPI";
+import { useRouter } from "next/router";
 
 function TrackCreatePage() {
-  const [activeStep, setActiveStep] = React.useState<number>(0)
-  const [image, setImage] = useState(null);
-  const [audio, setAudio] = useState(null);
+  const router = useRouter();
 
-  console.log(image);
+  const [createTrackRequest, { isLoading }] = useCreateTrackMutation();
+
+  const [activeStep, setActiveStep] = React.useState<number>(0)
+  const [trackInputData, setTrackInputData] = useState({
+    name: '',
+    artist: '',
+  })
+  const [image, setImage] = useState('');
+  const [audio, setAudio] = useState('');
+
+  const createTrack = async () => {
+    const formData = new FormData();
+
+    formData.append('name', trackInputData.name);
+    formData.append('artist', trackInputData.artist);
+    formData.append('image', image);
+    formData.append('audio', audio);
+
+    await createTrackRequest(formData);
+
+    router.push('/tracks')
+  }
 
   return (
     <NavBarLayout>
@@ -22,9 +43,18 @@ function TrackCreatePage() {
           <Card className={classes.mainCard}>
             {activeStep === 0 && (
               <Box display="flex" flexDirection="column" p={5}>
-                <TextField label="Track title" />
+                <TextField
+                  value={trackInputData.name}
+                  onChange={(e) => setTrackInputData((prev) => ({ ...prev, name: e.target.value }))}
+                  label="Track title"
+                />
                 <Box mt={2}>
-                  <TextField fullWidth label="Artist" />
+                  <TextField
+                    value={trackInputData.artist}
+                    onChange={(e) => setTrackInputData((prev) => ({ ...prev, artist: e.target.value }))}
+                    fullWidth
+                    label="Artist"
+                  />
                 </Box>
               </Box>
             )}
@@ -55,7 +85,7 @@ function TrackCreatePage() {
                 </FileUploader>
               </Box>
             )}
-            <CreatePageControls setActiveStep={setActiveStep} activeStep={activeStep} />
+            <CreatePageControls createTrack={createTrack} setActiveStep={setActiveStep} activeStep={activeStep} />
           </Card>
         </StepsWrapper>
       </Grid>
