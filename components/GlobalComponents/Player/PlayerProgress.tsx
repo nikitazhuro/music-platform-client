@@ -19,7 +19,7 @@ const PlayerProgress: React.FC<IPlayerProgressProps> = ({
         <input
           className="inputRange"
           type="range"
-          min={left}
+          min={0}
           max={right}
           value={left}
           onChange={onChange}

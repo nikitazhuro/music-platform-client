@@ -6,11 +6,11 @@ import { ITrack } from "../../../../types/track";
 
 function TracksList() {
   const tracks: Array<ITrack> = [
-    { uuid: '1', name: 'Track1', artist: 'Alfred', listens: 0, audio: '', image: 'http://localhost:3001/image/25e457e1-37cf-432d-a780-cd6d4f26519b.jpg', comments: [] },
-    { uuid: '2', name: 'Track2', artist: 'John', listens: 0, audio: '', image: 'http://localhost:3001/image/25e457e1-37cf-432d-a780-cd6d4f26519b.jpg', comments: [] },
-    { uuid: '3', name: 'Track3', artist: 'Jacks', listens: 0, audio: '', image: 'http://localhost:3001/image/25e457e1-37cf-432d-a780-cd6d4f26519b.jpg', comments: [] },
+    { uuid: '1', name: 'Track1', artist: 'Alfred', listens: 0, audio: 'http://localhost:3001/audio/1ed0896e-ffa4-40c0-95cf-f63ca821e7be.mp3', image: 'http://localhost:3001/image/25e457e1-37cf-432d-a780-cd6d4f26519b.jpg', comments: [] },
+    { uuid: '2', name: 'Track2', artist: 'John', listens: 0, audio: 'http://localhost:3001/audio/1ed0896e-ffa4-40c0-95cf-f63ca821e7be.mp3', image: 'http://localhost:3001/image/25e457e1-37cf-432d-a780-cd6d4f26519b.jpg', comments: [] },
+    { uuid: '3', name: 'Track3', artist: 'Jacks', listens: 0, audio: 'http://localhost:3001/audio/1ed0896e-ffa4-40c0-95cf-f63ca821e7be.mp3', image: 'http://localhost:3001/image/25e457e1-37cf-432d-a780-cd6d4f26519b.jpg', comments: [] },
+  ];
 
-  ]
   return (
     <Grid container flexDirection="column">
       {tracks.map((track) => (

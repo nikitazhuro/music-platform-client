@@ -19,3 +19,5 @@ export const rootReducer = (state: any, action: PayloadAction<object, string>) =
     return reducer(state, action);
   }
 };
+
+export type RootState = ReturnType<typeof reducer>;

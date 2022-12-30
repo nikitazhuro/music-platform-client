@@ -8,6 +8,7 @@ import CustomIconButton from "../../../../UI/IconButton/CustomIconButton";
 import TrackTitle from "./TrackTitle";
 
 import { ITrack } from "../../../../../types/track";
+import { useActions } from "../../../../../hooks/useActions";
 
 interface ITrackItemProps {
   track: ITrack,
@@ -20,15 +21,23 @@ const TrackItem: React.FC<ITrackItemProps> = ({
 }) => {
   const router = useRouter();
 
+  const { setActiveTrack } = useActions();
+
   const stopPropagation = (e: React.MouseEvent) => {
     e.stopPropagation()
   };
+
+  const playTrack = (e: React.MouseEvent) => {
+    e.stopPropagation()
+
+    setActiveTrack(track)
+  }
   return (
     <Card onClick={() => router.push('/tracks/' + track.uuid)}>
       <Box p={1}>
         <Grid container flexDirection="row" alignItems="center" justifyContent="space-between">
           <Box display="flex" alignItems="center">
-            <CustomIconButton onClick={stopPropagation} size="medium">
+            <CustomIconButton onClick={playTrack} size="medium">
               {isActive
                 ? (
                   <Pause />
