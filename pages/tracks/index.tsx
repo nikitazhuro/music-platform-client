@@ -6,7 +6,8 @@ import classes from '../../styles/tracks.module.scss';
 import NavBarLayout from "../../components/Layouts/NavBarLayout";
 import TracksCardHeader from "../../components/PagesComponents/TracksPage/TracksCard/TracksCardHeader";
 import TracksList from "../../components/PagesComponents/TracksPage/TracksCard/TracksList";
-import { AppThunk, wrapper } from "../../store";
+
+import { wrapper } from "../../store";
 import { tracksAPI } from "../../API/tracksAPI";
 
 function TracksPage() {
@@ -28,13 +29,15 @@ function TracksPage() {
 
 export default TracksPage;
 
-export const getServerSideProps = wrapper.getServerSideProps(store => async () => {
-  const dispatch = store.dispatch;
+// export const getServerSideProps = wrapper.getServerSideProps(store => async () => {
+//   const dispatch = store.dispatch;
 
-  dispatch(tracksAPI.endpoints.getTracks.initiate())
-  await Promise.all(dispatch(tracksAPI.util.getRunningQueriesThunk()))
+//   const data = await dispatch(tracksAPI.endpoints.getTracks.initiate())
+//   await Promise.all(dispatch(tracksAPI.util.getRunningQueriesThunk()))
 
-  return {
-    props: {}
-  }
-});
+//   return {
+//     props: {
+//       data,
+//     }
+//   }
+// });

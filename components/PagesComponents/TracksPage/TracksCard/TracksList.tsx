@@ -6,14 +6,14 @@ import { ITrack } from "../../../../types/track";
 import { useGetTracksQuery } from "../../../../API/tracksAPI";
 
 function TracksList() {
-  const { data = [] } = useGetTracksQuery();
+  const { data = [], isLoading } = useGetTracksQuery();
 
   console.log(data);
 
 
   return (
     <Grid container flexDirection="column">
-      {data.map((track: ITrack) => (
+      {!isLoading && data.map((track: ITrack) => (
         <Box p={2} key={track.uuid}>
           <TrackItem track={track} isActive={false} />
         </Box>

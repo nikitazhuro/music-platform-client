@@ -9,6 +9,7 @@ import TrackTitle from "./TrackTitle";
 
 import { ITrack } from "../../../../../types/track";
 import { useActions } from "../../../../../hooks/useActions";
+import DeleteTrackWrapper from "./DeleteTrackWrapper";
 
 interface ITrackItemProps {
   track: ITrack,
@@ -55,9 +56,11 @@ const TrackItem: React.FC<ITrackItemProps> = ({
             <Box mr={2}>
               2:33 / 3:20
             </Box>
-            <CustomIconButton onClick={stopPropagation} size="medium">
-              <Delete />
-            </CustomIconButton>
+            <DeleteTrackWrapper
+              trackUUID={track.uuid}
+              image={track.image}
+              audio={track.audio}
+            />
           </Box>
         </Grid>
       </Box>

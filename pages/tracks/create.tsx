@@ -31,9 +31,8 @@ function TrackCreatePage() {
     formData.append('image', image);
     formData.append('audio', audio);
 
-    await createTrackRequest(formData);
-
-    router.push('/tracks')
+    await createTrackRequest(formData)
+      .then(() => router.push('/tracks'));
   }
 
   return (
@@ -85,7 +84,11 @@ function TrackCreatePage() {
                 </FileUploader>
               </Box>
             )}
-            <CreatePageControls createTrack={createTrack} setActiveStep={setActiveStep} activeStep={activeStep} />
+            <CreatePageControls
+              createTrack={createTrack}
+              setActiveStep={setActiveStep}
+              activeStep={activeStep}
+            />
           </Card>
         </StepsWrapper>
       </Grid>

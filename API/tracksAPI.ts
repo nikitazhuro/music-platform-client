@@ -12,7 +12,8 @@ export const tracksAPI = createApi({
   tagTypes: ['Track'],
   endpoints: (build) => ({
     getTracks: build.query({
-      query: () => '/'
+      query: () => '/',
+      providesTags: ['Track'],
     }),
     createTrack: build.mutation({
       query: (body) => ({
@@ -22,7 +23,15 @@ export const tracksAPI = createApi({
       }),
       invalidatesTags: ['Track'],
     }),
+    deleteTrack: build.mutation({
+      query: (body) => ({
+        url: '/delete',
+        method: 'DELETE',
+        body,
+      }),
+      invalidatesTags: ['Track'],
+    }),
   }),
 })
 
-export const { useGetTracksQuery, useCreateTrackMutation } = tracksAPI;
+export const { useGetTracksQuery, useCreateTrackMutation, useDeleteTrackMutation } = tracksAPI;
