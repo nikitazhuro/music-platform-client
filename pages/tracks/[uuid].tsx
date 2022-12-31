@@ -8,11 +8,12 @@ import TrackPageHeader from '../../components/PagesComponents/TrackPage/TrackPag
 import CreateCommentBlock from '../../components/PagesComponents/TrackPage/CreateCommentBlock';
 
 import { ITrack } from '../../types/track';
+import { wrapper } from '../../store';
+import { tracksAPI, useGetTrackQuery } from '../../API/tracksAPI';
+import { useRouter } from 'next/router';
 
-function TrackPage() {
-  const track: ITrack = {
-    uuid: '1', name: 'Track1', artist: 'Alfred', listens: 0, audio: '', image: 'http://localhost:3001/image/25e457e1-37cf-432d-a780-cd6d4f26519b.jpg', comments: []
-  }
+function TrackPage({ data }) {
+
   return (
     <NavBarLayout>
       <Grid mb={2} className={classes.trackPage}>
@@ -20,7 +21,7 @@ function TrackPage() {
       </Grid>
       <Card>
         <Box p={3}>
-          <TrackPageHeader track={track} />
+          <TrackPageHeader track={data} />
         </Box>
         <Box p={3}>
           <CreateCommentBlock />
@@ -31,3 +32,15 @@ function TrackPage() {
 }
 
 export default TrackPage;
+
+export const getServerSideProps = wrapper.getServerSideProps(store => async ({ params }) => {
+  const dispatch = store.dispatch;
+
+  const { data } = await dispatch(tracksAPI.endpoints.getTrack.initiate(params.uuid))
+
+  return {
+    props: {
+      data,
+    }
+  };
+});

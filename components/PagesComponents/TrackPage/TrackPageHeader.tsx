@@ -14,16 +14,18 @@ const TrackPageHeader: React.FC<ITrackPageHeader> = ({
 }) => {
   return (
     <Grid container alignItems="center">
-      <Image width={200} height={200} src={track.image} alt="alt" />
+      {track?.image && (
+        <Image width={200} height={200} src={'http://localhost:3001/' + track?.image} alt="alt" />
+      )}
       <Box ml={2} display="flex" flexDirection="column">
-        <HeaderTitle title={track.name} />
+        <HeaderTitle title={track?.name} />
         <Box my={2}>
           <h1>
-            Artist - {track.artist}
+            Artist - {track?.artist}
           </h1>
         </Box>
         <h1>
-          Listens - {track.listens}
+          Listens - {track?.listens}
         </h1>
       </Box>
     </Grid>

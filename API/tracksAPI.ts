@@ -15,6 +15,9 @@ export const tracksAPI = createApi({
       query: () => '/',
       providesTags: ['Track'],
     }),
+    getTrack: build.query({
+      query: (uuid: string) => `/${uuid}`
+    }),
     createTrack: build.mutation({
       query: (body) => ({
         url: '/create',
@@ -34,4 +37,9 @@ export const tracksAPI = createApi({
   }),
 })
 
-export const { useGetTracksQuery, useCreateTrackMutation, useDeleteTrackMutation } = tracksAPI;
+export const {
+  useGetTracksQuery,
+  useCreateTrackMutation,
+  useDeleteTrackMutation,
+  useGetTrackQuery,
+} = tracksAPI;
