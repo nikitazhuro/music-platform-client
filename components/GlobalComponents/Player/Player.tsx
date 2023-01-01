@@ -10,12 +10,14 @@ import CustomIconButton from '../../UI/IconButton/CustomIconButton';
 import { ITrack } from '../../../types/track';
 import { useTypedSelector } from '../../../hooks/typedHooks/useTypedSelector';
 import { useActions } from '../../../hooks/useActions';
+import TrackProgress from './PlayerComponents/TrackProgress';
+import TrackVolume from './PlayerComponents/TrackVolume';
 
 let audio: any;
 
 export default function Player() {
-  const { paused, volume, duration, currentTime, activeTrack } = useTypedSelector(state => state.player)
-  const { setPaused, setVolume, setDuration, setCurrentTime } = useActions();
+  const { paused, activeTrack } = useTypedSelector(state => state.player)
+  const { setPaused, setDuration, setCurrentTime } = useActions();
 
   const play = () => {
     setPaused(false)
@@ -29,20 +31,10 @@ export default function Player() {
     audio.pause();
   }
 
-  const onChangeVolume = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setVolume(Number(e.target.value));
-    audio.volume = Number(e.target.value) / 100;
-  }
-
-  const onChangeCurrentTime = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setCurrentTime(Number(e.target.value));
-    audio.currentTime = Number(e.target.value);
-  }
-
   const initAudio = () => {
     if (activeTrack && 'http://localhost:3001/' + activeTrack.audio !== audio.src) {
       audio.src = 'http://localhost:3001/' + activeTrack.audio;
-      audio.volume = volume / 100;
+      audio.volume = 0.1;
 
       audio.onloadedmetadata = () => {
         setDuration(audio.duration)
@@ -85,14 +77,9 @@ export default function Player() {
           </Box>
           <TrackTitle trackName={activeTrack?.name} artist={activeTrack?.artist} />
           <Box sx={{ flexGrow: 1 }} />
-          <PlayerProgress width={500} left={currentTime} right={duration} onChange={onChangeCurrentTime} />
+          <TrackProgress audio={audio} />
           <Box sx={{ flexGrow: 3 }} />
-          <Box display="flex" alignItems="center" mr={2}>
-            <IconButton color="inherit">
-              <VolumeDown />
-            </IconButton>
-            <PlayerProgress left={volume} right={100} onChange={onChangeVolume} />
-          </Box>
+          <TrackVolume audio={audio} />
         </Box>
       </AppBar>
     </React.Fragment>

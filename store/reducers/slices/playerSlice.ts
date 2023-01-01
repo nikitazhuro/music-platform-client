@@ -12,7 +12,7 @@ export interface IPlayerState {
 const initialState: IPlayerState = {
   activeTrack: null,
   paused: true,
-  volume: 50,
+  volume: 10,
   duration: 0,
   currentTime: 0,
 }

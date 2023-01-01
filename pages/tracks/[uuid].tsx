@@ -9,38 +9,58 @@ import CreateCommentBlock from '../../components/PagesComponents/TrackPage/Creat
 
 import { ITrack } from '../../types/track';
 import { wrapper } from '../../store';
-import { tracksAPI, useGetTrackQuery } from '../../API/tracksAPI';
-import { useRouter } from 'next/router';
+import { tracksAPI } from '../../API/tracksAPI';
+import { AnyAction, ThunkDispatch } from '@reduxjs/toolkit';
+import { GetServerSideProps } from 'next';
+import Head from 'next/head';
 
-function TrackPage({ data }) {
+interface ITrackPageProps {
+  track: ITrack
+}
+
+interface ITrackPageQuery {
+  uuid?: string;
+}
+
+function TrackPage({ track }: ITrackPageProps) {
 
   return (
-    <NavBarLayout>
-      <Grid mb={2} className={classes.trackPage}>
-        <GoBackBlock />
-      </Grid>
-      <Card>
-        <Box p={3}>
-          <TrackPageHeader track={data} />
-        </Box>
-        <Box p={3}>
-          <CreateCommentBlock />
-        </Box>
-      </Card>
-    </NavBarLayout>
+    <>
+      <Head>
+        <title>{`${track.artist}-${track.name}`}</title>
+      </Head>
+      <NavBarLayout>
+        <Grid mb={2} className={classes.trackPage}>
+          <GoBackBlock />
+        </Grid>
+        <Card>
+          <Box p={3}>
+            <TrackPageHeader track={track} />
+          </Box>
+          <Box p={3}>
+            <CreateCommentBlock />
+          </Box>
+        </Card>
+      </NavBarLayout>
+    </>
   )
 }
 
 export default TrackPage;
 
-export const getServerSideProps = wrapper.getServerSideProps(store => async ({ params }) => {
-  const dispatch = store.dispatch;
+export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps(store => async ({ params }) => {
+  type NextDispatch = ThunkDispatch<AnyAction, AnyAction, AnyAction>
+  const {
+    uuid,
+  } = params as ITrackPageQuery;
 
-  const { data } = await dispatch(tracksAPI.endpoints.getTrack.initiate(params.uuid))
+  const dispatch = store.dispatch as NextDispatch;
+
+  const { data } = await dispatch(tracksAPI.endpoints.getTrack.initiate(uuid as string))
 
   return {
     props: {
-      data,
+      track: data,
     }
   };
 });
