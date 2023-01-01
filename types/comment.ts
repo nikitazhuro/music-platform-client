@@ -7,3 +7,9 @@ export interface IComment {
   text: string;
   track?: ITrack;
 }
+
+export interface ICommentDto {
+  track_uuid: string;
+  username: string;
+  text: string;
+}

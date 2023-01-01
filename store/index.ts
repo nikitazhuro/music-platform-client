@@ -8,10 +8,13 @@ import { reducer, RootState } from './reducers/index';
 
 //API
 import { tracksAPI } from '../API/tracksAPI';
+import commentAPI from '../API/commentAPI';
 
 const store = configureStore({
   reducer,
-  middleware: (gDM) => gDM().concat(tracksAPI.middleware),
+  middleware: (gDM) => gDM()
+    .concat(tracksAPI.middleware)
+    .concat(commentAPI.middleware),
 });
 
 const makeStore = (context: Context) => store

@@ -13,6 +13,7 @@ import { tracksAPI } from '../../API/tracksAPI';
 import { AnyAction, ThunkDispatch } from '@reduxjs/toolkit';
 import { GetServerSideProps } from 'next';
 import Head from 'next/head';
+import CommentsBlock from '../../components/PagesComponents/TrackPage/CommentsBlock';
 
 interface ITrackPageProps {
   track: ITrack
@@ -38,7 +39,10 @@ function TrackPage({ track }: ITrackPageProps) {
             <TrackPageHeader track={track} />
           </Box>
           <Box p={3}>
-            <CreateCommentBlock />
+            <CreateCommentBlock trackUUID={track.uuid} />
+          </Box>
+          <Box p={3}>
+            <CommentsBlock />
           </Box>
         </Card>
       </NavBarLayout>
