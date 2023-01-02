@@ -25,6 +25,8 @@ interface ITrackPageQuery {
 
 function TrackPage({ track }: ITrackPageProps) {
 
+  console.log(track);
+
   return (
     <>
       <Head>

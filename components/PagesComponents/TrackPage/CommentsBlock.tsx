@@ -1,11 +1,20 @@
 import { Delete } from "@mui/icons-material";
 import { Box, Card } from "@mui/material";
+import { useRouter } from "next/router";
 import { useDeleteCommentMutation, useReadCommentsQuery } from "../../../API/commentAPI";
 import { IComment } from "../../../types/comment";
 import CustomIconButton from "../../UI/IconButton/CustomIconButton";
 
 function CommentsBlock() {
-  const { data = [] } = useReadCommentsQuery();
+  const router = useRouter();
+
+  const query = {
+    limit: 5,
+    offset: 0,
+    track_uuid: router.query.uuid,
+  }
+
+  const { data = [] } = useReadCommentsQuery(query);
   const [deleteCommentRequest] = useDeleteCommentMutation();
 
 

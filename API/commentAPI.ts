@@ -15,7 +15,10 @@ const commentAPI = createApi({
       invalidatesTags: ['Comment'],
     }),
     readComments: builder.query({
-      query: () => '/',
+      query: (params) => ({
+        params,
+        url: '/'
+      }),
       providesTags: ['Comment'],
     }),
     deleteComment: builder.mutation({
