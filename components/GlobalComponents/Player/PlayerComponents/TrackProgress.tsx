@@ -1,7 +1,10 @@
 import { Box } from "@mui/material";
+
+import PlayerProgress from "../PlayerProgress"
+
 import { useTypedSelector } from "../../../../hooks/typedHooks/useTypedSelector";
 import { useActions } from "../../../../hooks/useActions";
-import PlayerProgress from "../PlayerProgress"
+import { currentTrackTime, transforTrackDuration } from "../../../../tools/playerTools";
 
 interface ITrackProgressProps {
   audio: any
@@ -10,7 +13,7 @@ interface ITrackProgressProps {
 const TrackProgress: React.FC<ITrackProgressProps> = ({
   audio,
 }) => {
-  const { duration, currentTime } = useTypedSelector(state => state.player)
+  const { duration, currentTime: time } = useTypedSelector(state => state.player)
   const { setCurrentTime } = useActions();
 
   const onChangeCurrentTime = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -21,12 +24,12 @@ const TrackProgress: React.FC<ITrackProgressProps> = ({
   return (
     <Box display="flex" alignItems="center">
       <Box mr={2}>
-        <PlayerProgress width={500} left={currentTime} right={duration} onChange={onChangeCurrentTime} />
+        <PlayerProgress width={500} left={time} right={duration} onChange={onChangeCurrentTime} />
       </Box>
       <Box>
-        {`${currentTime < 60 ? '00' : `0${Math.floor(currentTime / 60)}`}:${currentTime < 60 ? Math.floor(currentTime) : Math.floor(currentTime) - Math.floor(currentTime / 60) * 60}`}
+        {currentTrackTime(time)}
         {' / '}
-        {`0${Math.floor(duration / 60)}:${Math.floor(duration) - Math.floor(duration / 60) * 60}`}
+        {transforTrackDuration(duration)}
       </Box>
     </Box>
   )

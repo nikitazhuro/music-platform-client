@@ -8,9 +8,6 @@ import { useGetTracksQuery } from "../../../../API/tracksAPI";
 function TracksList() {
   const { data = [], isLoading } = useGetTracksQuery('');
 
-  console.log(data);
-
-
   return (
     <Grid container flexDirection="column">
       {!isLoading && data.map((track: ITrack) => (

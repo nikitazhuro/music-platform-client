@@ -44,6 +44,8 @@ export default function Player() {
         setCurrentTime(audio.currentTime)
       }
 
+      audio.onended = () => play()
+
       play();
     }
   };
