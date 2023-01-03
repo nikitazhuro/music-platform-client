@@ -4,11 +4,12 @@ import React, { useState } from 'react';
 import classes from '../../styles/trackCreatePage.module.scss';
 
 import StepsWrapper from "../../components/PagesComponents/CreateTrackPage/StepsWrapper";
-import NavBarLayout from "../../components/Layouts/NavBarLayout";
+import NavBarWithPlayerLayout from "../../components/Layouts/NavBarWithPlayerLayout";
 import CreatePageControls from "../../components/PagesComponents/CreateTrackPage/CreatePageControls";
 import FileUploader from "../../components/UI/FileUploader";
 import { useCreateTrackMutation } from "../../API/tracksAPI";
 import { useRouter } from "next/router";
+import { ITrackCreateDto } from "../../types/track";
 
 function TrackCreatePage() {
   const router = useRouter();
@@ -36,7 +37,7 @@ function TrackCreatePage() {
   }
 
   return (
-    <NavBarLayout>
+    <NavBarWithPlayerLayout>
       <Grid className={classes.trackCreatePage}>
         <StepsWrapper activeStep={activeStep}>
           <Card className={classes.mainCard}>
@@ -92,7 +93,7 @@ function TrackCreatePage() {
           </Card>
         </StepsWrapper>
       </Grid>
-    </NavBarLayout>
+    </NavBarWithPlayerLayout>
   )
 }
 

@@ -2,7 +2,7 @@ import { Card, Grid, Box } from '@mui/material';
 
 import classes from '../../styles/trackPage.module.scss';
 
-import NavBarLayout from "../../components/Layouts/NavBarLayout";
+import NavBarWithPlayerLayout from "../../components/Layouts/NavBarWithPlayerLayout";
 import GoBackBlock from "../../components/PagesComponents/TrackPage/GoBackBlock";
 import TrackPageHeader from '../../components/PagesComponents/TrackPage/TrackPageHeader';
 import CreateCommentBlock from '../../components/PagesComponents/TrackPage/CreateCommentBlock';
@@ -32,7 +32,7 @@ function TrackPage({ track }: ITrackPageProps) {
       <Head>
         <title>{`${track.artist}-${track.name}`}</title>
       </Head>
-      <NavBarLayout>
+      <NavBarWithPlayerLayout>
         <Grid mb={2} className={classes.trackPage}>
           <GoBackBlock />
         </Grid>
@@ -47,7 +47,7 @@ function TrackPage({ track }: ITrackPageProps) {
             <CommentsBlock />
           </Box>
         </Card>
-      </NavBarLayout>
+      </NavBarWithPlayerLayout>
     </>
   )
 }

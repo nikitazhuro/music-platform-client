@@ -3,7 +3,7 @@ import Head from "next/head";
 
 import classes from '../../styles/tracks.module.scss';
 
-import NavBarLayout from "../../components/Layouts/NavBarLayout";
+import NavBarWithPlayerLayout from "../../components/Layouts/NavBarWithPlayerLayout";
 import TracksCardHeader from "../../components/PagesComponents/TracksPage/TracksCard/TracksCardHeader";
 import TracksList from "../../components/PagesComponents/TracksPage/TracksCard/TracksList";
 
@@ -14,13 +14,13 @@ function TracksPage() {
       <Head>
         <title>Tracks</title>
       </Head>
-      <NavBarLayout>
+      <NavBarWithPlayerLayout>
         <Card className={classes.TracksCard}>
           <TracksCardHeader />
           <hr />
           <TracksList />
         </Card>
-      </NavBarLayout>
+      </NavBarWithPlayerLayout>
     </>
   )
 }

@@ -6,7 +6,7 @@ import { ITrack } from "../../../../types/track";
 import { useGetTracksQuery } from "../../../../API/tracksAPI";
 
 function TracksList() {
-  const { data = [], isLoading } = useGetTracksQuery();
+  const { data = [], isLoading } = useGetTracksQuery('');
 
   console.log(data);
 

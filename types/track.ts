@@ -11,3 +11,14 @@ export interface ITrack {
   audio: string;
   comments?: Array<IComment>;
 }
+
+export interface ITrackDeleteDto {
+  trackUUID: string;
+  image: string;
+  audio: string;
+}
+
+export interface ITrackCreateDto {
+  name: string;
+  artist: string;
+}

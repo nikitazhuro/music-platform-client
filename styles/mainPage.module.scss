@@ -1,0 +1,18 @@
+.MainPageLayout {
+  height: calc(100vh - 68.5px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.MainPageWelcome {
+  font-family: "RoobertPRO","Helvetica","Arial",sans-serif;
+  font-weight: 700;
+  display: flex;
+  font-size: 48px;
+  color: #2196f3;
+}
+.MusicNoteIcon {
+  width: 48px;
+  height: 48px;
+}

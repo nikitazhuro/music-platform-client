@@ -1,6 +1,6 @@
 import { combineReducers, PayloadAction } from "@reduxjs/toolkit";
-import { HYDRATE } from "next-redux-wrapper";
-import commentAPI from "../../API/commentAPI";
+
+import { commentAPI } from "../../API/commentAPI";
 
 //API
 import { tracksAPI } from './../../API/tracksAPI';

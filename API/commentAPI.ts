@@ -1,7 +1,8 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/dist/query/react";
-import { IComment, ICommentDto } from "../types/comment";
 
-const commentAPI = createApi({
+import { ICommentDto } from "../types/comment";
+
+export const commentAPI = createApi({
   reducerPath: 'commentAPI',
   baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:3001/comment'}),
   tagTypes: ['Comment'],
@@ -36,5 +37,3 @@ export const {
   useReadCommentsQuery,
   useDeleteCommentMutation,
 } = commentAPI;
-
-export default commentAPI;

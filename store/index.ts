@@ -8,7 +8,7 @@ import { reducer, RootState } from './reducers/index';
 
 //API
 import { tracksAPI } from '../API/tracksAPI';
-import commentAPI from '../API/commentAPI';
+import { commentAPI } from '../API/commentAPI';
 
 const store = configureStore({
   reducer,
