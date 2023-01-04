@@ -10,6 +10,7 @@ export interface ITrack {
   image: string;
   audio: string;
   comments?: Array<IComment>;
+  duration?: number;
 }
 
 export interface ITrackDeleteDto {

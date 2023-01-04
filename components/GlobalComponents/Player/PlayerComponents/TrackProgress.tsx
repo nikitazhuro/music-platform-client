@@ -5,6 +5,7 @@ import PlayerProgress from "../PlayerProgress"
 import { useTypedSelector } from "../../../../hooks/typedHooks/useTypedSelector";
 import { useActions } from "../../../../hooks/useActions";
 import { currentTrackTime, transforTrackDuration } from "../../../../tools/playerTools";
+import TrackTimeProgress from "./TrackTimeProgress";
 
 interface ITrackProgressProps {
   audio: any
@@ -26,11 +27,7 @@ const TrackProgress: React.FC<ITrackProgressProps> = ({
       <Box mr={2}>
         <PlayerProgress width={500} left={time} right={duration} onChange={onChangeCurrentTime} />
       </Box>
-      <Box>
-        {currentTrackTime(time)}
-        {' / '}
-        {transforTrackDuration(duration)}
-      </Box>
+      <TrackTimeProgress />
     </Box>
   )
 }

@@ -16,25 +16,21 @@ import TrackVolume from './PlayerComponents/TrackVolume';
 let audio: any;
 
 export default function Player() {
-  const { paused, activeTrack } = useTypedSelector(state => state.player)
+  const { paused, activeTrack, volume } = useTypedSelector(state => state.player)
   const { setPaused, setDuration, setCurrentTime } = useActions();
 
   const play = () => {
     setPaused(false)
-
-    audio.play();
   }
 
   const pause = () => {
     setPaused(true)
-
-    audio.pause();
   }
 
   const initAudio = () => {
     if (activeTrack && 'http://localhost:3001/' + activeTrack.audio !== audio.src) {
       audio.src = 'http://localhost:3001/' + activeTrack.audio;
-      audio.volume = 0.1;
+      audio.volume = volume / 100;
 
       audio.onloadedmetadata = () => {
         setDuration(audio.duration)
@@ -44,7 +40,7 @@ export default function Player() {
         setCurrentTime(audio.currentTime)
       }
 
-      audio.onended = () => play()
+      audio.onended = () => audio.play();
 
       play();
     }
@@ -57,6 +53,14 @@ export default function Player() {
       initAudio();
     }
   }, [activeTrack])
+
+  useEffect(() => {
+    if (paused) {
+      audio.pause();
+    } else {
+      audio.play();
+    }
+  }, [paused, activeTrack])
 
   if (!activeTrack) return null;
 
