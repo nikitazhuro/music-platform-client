@@ -1,7 +1,7 @@
 import { Container } from "@mui/material";
 
 import NavBar from "../GlobalComponents/NavBar/NavBar";
-import Player from "../GlobalComponents/Player/Player";
+import PlayerRoot from "../GlobalComponents/Player/PlayerRoot";
 
 interface INavBarWithPlayerLayoutProps {
   children: React.ReactNode
@@ -14,7 +14,7 @@ const NavBarWithPlayerLayout: React.FC<INavBarWithPlayerLayoutProps> = ({ childr
       <Container>
         {children}
       </Container>
-      <Player />
+      <PlayerRoot />
     </>
   )
 }

@@ -1,19 +1,20 @@
 import { VolumeDown } from "@mui/icons-material";
 import { IconButton, Box } from "@mui/material";
 
-import PlayerProgress from "../PlayerProgress";
+import Progress from "../../../UI/Progress";
 
 import { useTypedSelector } from "../../../../hooks/typedHooks/useTypedSelector";
 import { useActions } from "../../../../hooks/useActions";
+import { getPlayerVolume } from "../../../../store/selectors/playerSelectors";
 
-interface ITrackVolumeProps {
+interface IPlayerVolumeProps {
   audio: any;
 }
 
-const TrackVolume: React.FC<ITrackVolumeProps> = ({
+const PlayerVolume: React.FC<IPlayerVolumeProps> = ({
   audio,
 }) => {
-  const { volume } = useTypedSelector(state => state.player)
+  const volume = useTypedSelector(getPlayerVolume)
   const { setVolume } = useActions();
 
   const onChangeVolume = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -26,9 +27,9 @@ const TrackVolume: React.FC<ITrackVolumeProps> = ({
       <IconButton color="inherit">
         <VolumeDown />
       </IconButton>
-      <PlayerProgress left={volume} right={100} onChange={onChangeVolume} />
+      <Progress left={volume} right={100} onChange={onChangeVolume} />
     </Box>
   )
 }
 
-export default TrackVolume;
+export default PlayerVolume;

@@ -1,21 +1,19 @@
 import React, { useEffect } from 'react';
-import { Box, AppBar, styled, CssBaseline, IconButton, Fab } from '@mui/material';
-import { Pause, PlayArrow, VolumeDown } from '@mui/icons-material';
+import { Box, AppBar, CssBaseline, IconButton } from '@mui/material';
+import { Pause, PlayArrow } from '@mui/icons-material';
 
 import Avatar from "../../UI/Avatar/Avatar";
-import TrackTitle from '../../PagesComponents/TracksPage/TracksCard/TrackItem/TrackTitle';
-import PlayerProgress from './PlayerProgress';
+import TrackTitle from '../../PagesComponents/TracksPage/TrackItem/TrackTitle';
 import CustomIconButton from '../../UI/IconButton/CustomIconButton';
+import TrackProgressRoot from './PlayerComponents/TrackProgress/TrackProgressRoot';
+import PlayerVolume from './PlayerComponents/PlayerVolume';
 
-import { ITrack } from '../../../types/track';
 import { useTypedSelector } from '../../../hooks/typedHooks/useTypedSelector';
 import { useActions } from '../../../hooks/useActions';
-import TrackProgress from './PlayerComponents/TrackProgress';
-import TrackVolume from './PlayerComponents/TrackVolume';
 
 let audio: any;
 
-export default function Player() {
+const PlayerRoot: React.FC = () => {
   const { paused, activeTrack, volume } = useTypedSelector(state => state.player)
   const { setPaused, setDuration, setCurrentTime } = useActions();
 
@@ -28,7 +26,7 @@ export default function Player() {
   }
 
   const initAudio = () => {
-    if (activeTrack && 'http://localhost:3001/' + activeTrack.audio !== audio.src) {
+    if (activeTrack && ('http://localhost:3001/' + activeTrack.audio) !== audio.src) {
       audio.src = 'http://localhost:3001/' + activeTrack.audio;
       audio.volume = volume / 100;
 
@@ -65,7 +63,7 @@ export default function Player() {
   if (!activeTrack) return null;
 
   return (
-    <React.Fragment>
+    <>
       <CssBaseline />
       <AppBar position="fixed" color="default" sx={{ top: 'auto', bottom: 0 }}>
         <Box p={1} display="flex" alignItems="center">
@@ -83,11 +81,13 @@ export default function Player() {
           </Box>
           <TrackTitle trackName={activeTrack?.name} artist={activeTrack?.artist} />
           <Box sx={{ flexGrow: 1 }} />
-          <TrackProgress audio={audio} />
+          <TrackProgressRoot audio={audio} />
           <Box sx={{ flexGrow: 3 }} />
-          <TrackVolume audio={audio} />
+          <PlayerVolume audio={audio} />
         </Box>
       </AppBar>
-    </React.Fragment>
+    </>
   );
 }
+
+export default PlayerRoot;

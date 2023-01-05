@@ -1,6 +1,8 @@
 import { Delete } from "@mui/icons-material"
-import { useDeleteTrackMutation } from "../../../../../API/tracksAPI"
-import CustomIconButton from "../../../../UI/IconButton/CustomIconButton"
+
+import CustomIconButton from "../../../UI/IconButton/CustomIconButton"
+
+import { useDeleteTrackMutation } from "../../../../API/tracksAPI"
 
 interface IDeleteTrackWrapperProps {
   trackUUID: string;
@@ -14,6 +16,7 @@ const DeleteTrackWrapper: React.FC<IDeleteTrackWrapperProps> = ({
   audio,
 }) => {
   const [deleteTrackRequest] = useDeleteTrackMutation();
+
   const removeTrack = async (e: React.MouseEvent) => {
     e.stopPropagation();
 
@@ -25,7 +28,6 @@ const DeleteTrackWrapper: React.FC<IDeleteTrackWrapperProps> = ({
 
     await deleteTrackRequest(config);
   }
-
 
   return (
     <CustomIconButton onClick={removeTrack} size="medium">

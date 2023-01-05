@@ -1,19 +1,20 @@
 import { Card, Grid, Box } from '@mui/material';
+import { GetServerSideProps } from 'next';
+import Head from 'next/head';
+import { AnyAction, ThunkDispatch } from '@reduxjs/toolkit';
 
 import classes from '../../styles/trackPage.module.scss';
 
 import NavBarWithPlayerLayout from "../../components/Layouts/NavBarWithPlayerLayout";
 import GoBackBlock from "../../components/PagesComponents/TrackPage/GoBackBlock";
 import TrackPageHeader from '../../components/PagesComponents/TrackPage/TrackPageHeader';
-import CreateCommentBlock from '../../components/PagesComponents/TrackPage/CreateCommentBlock';
+import CreateCommentWrapper from '../../components/PagesComponents/TrackPage/CreateCommentWrapper';
+import CommentsBlock from '../../components/PagesComponents/TrackPage/CommentsBlock';
 
 import { ITrack } from '../../types/track';
 import { wrapper } from '../../store';
 import { tracksAPI } from '../../API/tracksAPI';
-import { AnyAction, ThunkDispatch } from '@reduxjs/toolkit';
-import { GetServerSideProps } from 'next';
-import Head from 'next/head';
-import CommentsBlock from '../../components/PagesComponents/TrackPage/CommentsBlock';
+
 
 interface ITrackPageProps {
   track: ITrack
@@ -24,13 +25,10 @@ interface ITrackPageQuery {
 }
 
 function TrackPage({ track }: ITrackPageProps) {
-
-  console.log(track);
-
   return (
     <>
       <Head>
-        <title>{`${track.artist}-${track.name}`}</title>
+        <title>{`${track.artist} - ${track.name}`}</title>
       </Head>
       <NavBarWithPlayerLayout>
         <Grid mb={2} className={classes.trackPage}>
@@ -41,7 +39,7 @@ function TrackPage({ track }: ITrackPageProps) {
             <TrackPageHeader track={track} />
           </Box>
           <Box p={3}>
-            <CreateCommentBlock trackUUID={track.uuid} />
+            <CreateCommentWrapper />
           </Box>
           <Box p={3}>
             <CommentsBlock />

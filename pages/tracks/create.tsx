@@ -9,17 +9,17 @@ import CreatePageControls from "../../components/PagesComponents/CreateTrackPage
 import FileUploader from "../../components/UI/FileUploader";
 import { useCreateTrackMutation } from "../../API/tracksAPI";
 import { useRouter } from "next/router";
-import { ITrackCreateDto } from "../../types/track";
 
 function TrackCreatePage() {
   const router = useRouter();
 
-  const [createTrackRequest, { isLoading }] = useCreateTrackMutation();
+  const [createTrackRequest] = useCreateTrackMutation();
 
   const [activeStep, setActiveStep] = React.useState<number>(0)
   const [trackInputData, setTrackInputData] = useState({
     name: '',
     artist: '',
+    duration: '',
   })
   const [image, setImage] = useState('');
   const [audio, setAudio] = useState('');
@@ -29,11 +29,31 @@ function TrackCreatePage() {
 
     formData.append('name', trackInputData.name);
     formData.append('artist', trackInputData.artist);
+    formData.append('duration', trackInputData.duration);
     formData.append('image', image);
     formData.append('audio', audio);
 
     await createTrackRequest(formData)
       .then(() => router.push('/tracks'));
+  }
+
+  const readAudio = (file: any) => {
+    setAudio(file)
+    let reader = new FileReader();
+
+    if (file) {
+      let audio = new Audio();
+
+      reader.onload = (e) => {
+        audio.src = e.target?.result as string;
+
+        audio.onloadedmetadata = () => {
+          setTrackInputData((prev) => ({ ...prev, duration: audio.duration.toString() }));
+        }
+      }
+
+      reader.readAsDataURL(file);
+    }
   }
 
   return (
@@ -78,7 +98,7 @@ function TrackCreatePage() {
             )}
             {activeStep === 2 && (
               <Box display="flex" flexDirection="column" p={5}>
-                <FileUploader accept="audio/*" setFile={setAudio}>
+                <FileUploader accept="audio/*" setFile={readAudio}>
                   <Button>
                     Load an audio
                   </Button>

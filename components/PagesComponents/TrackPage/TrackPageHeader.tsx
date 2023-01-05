@@ -1,5 +1,4 @@
-import { Grid } from "@mui/material";
-import { Box } from "@mui/system";
+import { Grid, Box } from "@mui/material";
 import Image from "next/image";
 
 import { ITrack } from "../../../types/track";
@@ -20,13 +19,9 @@ const TrackPageHeader: React.FC<ITrackPageHeader> = ({
       <Box ml={2} display="flex" flexDirection="column">
         <HeaderTitle title={track?.name} />
         <Box my={2}>
-          <h1>
-            Artist - {track?.artist}
-          </h1>
+          <HeaderTitle title={track?.artist} />
         </Box>
-        <h1>
-          Listens - {track?.listens}
-        </h1>
+        <HeaderTitle title={`Listens - ${track?.listens}`} />
       </Box>
     </Grid>
   )

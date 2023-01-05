@@ -3,38 +3,39 @@ import { PlayArrow, Pause, Delete } from '@mui/icons-material'
 import React from "react";
 import { useRouter } from "next/router";
 
-import Avatar from "../../../../UI/Avatar/Avatar";
-import CustomIconButton from "../../../../UI/IconButton/CustomIconButton";
+import Avatar from "../../../UI/Avatar/Avatar";
+import CustomIconButton from "../../../UI/IconButton/CustomIconButton";
 import TrackTitle from "./TrackTitle";
 
-import { ITrack } from "../../../../../types/track";
-import { useActions } from "../../../../../hooks/useActions";
+import { ITrack } from "../../../../types/track";
+import { useActions } from "../../../../hooks/useActions";
 import DeleteTrackWrapper from "./DeleteTrackWrapper";
-import TrackTimeProgress from "../../../../GlobalComponents/Player/PlayerComponents/TrackTimeProgress";
-import { useTypedSelector } from "../../../../../hooks/typedHooks/useTypedSelector";
-import { transforTrackDuration } from "../../../../../tools/playerTools";
+import TrackDurationProgress from "../../../GlobalComponents/Player/PlayerComponents/TrackProgress/TrackDurationProgress";
+import { useTypedSelector } from "../../../../hooks/typedHooks/useTypedSelector";
+import { transforTrackDuration } from "../../../../tools/playerTools";
+import { getActiveTrackUUID, getPlayerPaused } from "../../../../store/selectors/playerSelectors";
 
 interface ITrackItemProps {
   track: ITrack;
-  isActive: boolean;
 }
 
 const TrackItem: React.FC<ITrackItemProps> = ({
   track,
-  isActive = false,
 }) => {
   const router = useRouter();
-  console.log(123);
 
+  const playerPaused = useTypedSelector(getPlayerPaused);
+  const activeTrackUUID = useTypedSelector(getActiveTrackUUID)
 
-  const { paused } = useTypedSelector((state) => state.player)
   const { setActiveTrack, setPaused } = useActions();
+
+  const isActive = track.uuid === activeTrackUUID;
 
   const playTrack = (e: React.MouseEvent) => {
     e.stopPropagation()
 
     if (isActive) {
-      setPaused(!paused)
+      setPaused(!playerPaused)
     } else {
       setActiveTrack(track)
     }
@@ -45,7 +46,7 @@ const TrackItem: React.FC<ITrackItemProps> = ({
         <Grid container flexDirection="row" alignItems="center" justifyContent="space-between">
           <Box display="flex" alignItems="center">
             <CustomIconButton onClick={playTrack} size="medium">
-              {isActive && !paused
+              {isActive && !playerPaused
                 ? (
                   <Pause />
                 )
@@ -62,7 +63,7 @@ const TrackItem: React.FC<ITrackItemProps> = ({
             <Box mr={2}>
               {isActive
                 ? (
-                  <TrackTimeProgress duration={track.duration || 0} />
+                  <TrackDurationProgress duration={track.duration || 0} />
                 )
                 : (
                   transforTrackDuration(track.duration || 0)

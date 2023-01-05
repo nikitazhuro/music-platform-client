@@ -1,23 +1,23 @@
 import { TextField, Box, Button } from "@mui/material"
+import { get } from "lodash";
+import { useRouter } from "next/router";
 import React, { useState } from "react";
 
 import { useCreateCommentMutation } from "../../../API/commentAPI";
 
 import { ICommentDto } from "../../../types/comment";
-
-interface ICreateCommentBlockProps {
-  trackUUID: string;
-}
+import HeaderTitle from "../../UI/Title/HeaderTitle";
 
 interface ICommentData {
   commentTitle: string;
   commentBody: string;
 }
 
-const CreateCommentBlock: React.FC<ICreateCommentBlockProps> = ({
-  trackUUID,
-}) => {
+const CreateCommentWrapper: React.FC = () => {
+  const router = useRouter();
+
   const [createCommentRequst] = useCreateCommentMutation();
+
   const [commentData, setCommentData] = useState<ICommentData>({
     commentTitle: '',
     commentBody: '',
@@ -31,7 +31,7 @@ const CreateCommentBlock: React.FC<ICreateCommentBlockProps> = ({
 
   const createComment = async () => {
     const config = {
-      track_uuid: trackUUID,
+      track_uuid: get(router, ['query', 'uuid'], ''),
       username: commentData.commentTitle,
       text: commentData.commentBody,
     } as ICommentDto;
@@ -40,9 +40,7 @@ const CreateCommentBlock: React.FC<ICreateCommentBlockProps> = ({
   }
   return (
     <Box width={600}>
-      <h1>
-        Write a comment:
-      </h1>
+      <HeaderTitle title="Write a comment:" />
       <Box mb={3} mt={1}>
         <TextField
           value={commentData.commentTitle}
@@ -62,11 +60,11 @@ const CreateCommentBlock: React.FC<ICreateCommentBlockProps> = ({
       />
       <Box mt={2} display="flex" justifyContent="end">
         <Button onClick={createComment}>
-          Create comment
+          Send comment
         </Button>
       </Box>
     </Box>
   )
 }
 
-export default CreateCommentBlock;
+export default CreateCommentWrapper;

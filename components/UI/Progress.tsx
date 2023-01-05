@@ -1,13 +1,13 @@
 import { Box } from "@mui/material";
 
-interface IPlayerProgressProps {
+interface IProgressProps {
   left: number;
   right: number;
   width?: number;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-const PlayerProgress: React.FC<IPlayerProgressProps> = ({
+const Progress: React.FC<IProgressProps> = ({
   left,
   right,
   width,
@@ -36,4 +36,4 @@ const PlayerProgress: React.FC<IPlayerProgressProps> = ({
   )
 }
 
-export default PlayerProgress;
+export default Progress;
