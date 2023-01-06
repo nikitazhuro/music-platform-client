@@ -1,5 +1,6 @@
 import { Button, Card, Grid, TextField, Box } from "@mui/material";
 import React, { useState } from 'react';
+import { useRouter } from "next/router";
 
 import classes from '../../styles/trackCreatePage.module.scss';
 
@@ -7,8 +8,10 @@ import StepsWrapper from "../../components/PagesComponents/CreateTrackPage/Steps
 import NavBarWithPlayerLayout from "../../components/Layouts/NavBarWithPlayerLayout";
 import CreatePageControls from "../../components/PagesComponents/CreateTrackPage/CreatePageControls";
 import FileUploader from "../../components/UI/FileUploader";
+
 import { useCreateTrackMutation } from "../../API/tracksAPI";
-import { useRouter } from "next/router";
+import LoadImageStep from "../../components/PagesComponents/CreateTrackPage/CreateTrackStepsContent/LoadImageStep";
+import LoadAudioStep from "../../components/PagesComponents/CreateTrackPage/CreateTrackStepsContent/LoadAudioStep";
 
 function TrackCreatePage() {
   const router = useRouter();
@@ -79,31 +82,10 @@ function TrackCreatePage() {
               </Box>
             )}
             {activeStep === 1 && (
-              <Box display="flex" height="100%" alignItems="center" justifyContent="space-between" p={5}>
-                <Box width={100}>
-                  awdawd
-                </Box>
-                <Box>
-                  <h1>
-                    Обложка трека
-                  </h1>
-
-                  <FileUploader accept="image/*" setFile={setImage}>
-                    <Button>
-                      Load an image
-                    </Button>
-                  </FileUploader>
-                </Box>
-              </Box>
+              <LoadImageStep />
             )}
             {activeStep === 2 && (
-              <Box display="flex" flexDirection="column" p={5}>
-                <FileUploader accept="audio/*" setFile={readAudio}>
-                  <Button>
-                    Load an audio
-                  </Button>
-                </FileUploader>
-              </Box>
+              <LoadAudioStep />
             )}
             <CreatePageControls
               createTrack={createTrack}

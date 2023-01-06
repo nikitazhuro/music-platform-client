@@ -1,7 +1,11 @@
 import { Box } from "@mui/material";
+
+import Progress from "../../../../UI/Progress";
+
 import { useTypedSelector } from "../../../../../hooks/typedHooks/useTypedSelector";
 import { useActions } from "../../../../../hooks/useActions";
-import Progress from "../../../../UI/Progress";
+import { getActiveTrackDuration, getPlayerCurrentTime } from "../../../../../store/selectors/playerSelectors";
+
 
 interface ITrackProgressProps {
   audio: any;
@@ -10,7 +14,8 @@ interface ITrackProgressProps {
 const TrackProgress: React.FC<ITrackProgressProps> = ({
   audio,
 }) => {
-  const { duration, currentTime: time } = useTypedSelector(state => state.player)
+  const currentTime = useTypedSelector(getPlayerCurrentTime)
+  const duration = useTypedSelector(getActiveTrackDuration);
 
   const { setCurrentTime } = useActions();
 
@@ -20,7 +25,7 @@ const TrackProgress: React.FC<ITrackProgressProps> = ({
   }
   return (
     <Box>
-      <Progress width={500} left={time} right={duration} onChange={onChangeCurrentTime} />
+      <Progress width={500} left={currentTime} right={duration} onChange={onChangeCurrentTime} />
     </Box>
   )
 }

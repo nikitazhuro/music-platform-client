@@ -10,12 +10,19 @@ import PlayerVolume from './PlayerComponents/PlayerVolume';
 
 import { useTypedSelector } from '../../../hooks/typedHooks/useTypedSelector';
 import { useActions } from '../../../hooks/useActions';
+import { getActiveTrackArtist, getActiveTrackAudio, getActiveTrackImage, getActiveTrackName, getPlayerPaused, getPlayerVolume } from '../../../store/selectors/playerSelectors';
 
 let audio: any;
 
 const PlayerRoot: React.FC = () => {
-  const { paused, activeTrack, volume } = useTypedSelector(state => state.player)
-  const { setPaused, setDuration, setCurrentTime } = useActions();
+  const activeTrackName = useTypedSelector(getActiveTrackName);
+  const activeTrackArtist = useTypedSelector(getActiveTrackArtist);
+  const activeTrackAudio = useTypedSelector(getActiveTrackAudio);
+  const activeTrackImage = useTypedSelector(getActiveTrackImage);
+  const paused = useTypedSelector(getPlayerPaused);
+  const volume = useTypedSelector(getPlayerVolume);
+
+  const { setPaused, setCurrentTime } = useActions();
 
   const play = () => {
     setPaused(false)
@@ -26,13 +33,9 @@ const PlayerRoot: React.FC = () => {
   }
 
   const initAudio = () => {
-    if (activeTrack && ('http://localhost:3001/' + activeTrack.audio) !== audio.src) {
-      audio.src = 'http://localhost:3001/' + activeTrack.audio;
+    if (activeTrackAudio && ('http://localhost:3001/' + activeTrackAudio) !== audio.src) {
+      audio.src = 'http://localhost:3001/' + activeTrackAudio;
       audio.volume = volume / 100;
-
-      audio.onloadedmetadata = () => {
-        setDuration(audio.duration)
-      }
 
       audio.ontimeupdate = () => {
         setCurrentTime(audio.currentTime)
@@ -50,7 +53,7 @@ const PlayerRoot: React.FC = () => {
     } else {
       initAudio();
     }
-  }, [activeTrack])
+  }, [activeTrackAudio])
 
   useEffect(() => {
     if (paused) {
@@ -58,9 +61,9 @@ const PlayerRoot: React.FC = () => {
     } else {
       audio.play();
     }
-  }, [paused, activeTrack])
+  }, [paused, activeTrackAudio])
 
-  if (!activeTrack) return null;
+  if (!activeTrackAudio) return null;
 
   return (
     <>
@@ -77,9 +80,9 @@ const PlayerRoot: React.FC = () => {
               )}
           </CustomIconButton>
           <Box display="flex" alignItems="center" mr={2} ml={1}>
-            <Avatar src={'http://localhost:3001/' + activeTrack?.image} width={50} height={50} />
+            <Avatar src={'http://localhost:3001/' + activeTrackImage} width={50} height={50} />
           </Box>
-          <TrackTitle trackName={activeTrack?.name} artist={activeTrack?.artist} />
+          <TrackTitle trackName={activeTrackName} artist={activeTrackArtist} />
           <Box sx={{ flexGrow: 1 }} />
           <TrackProgressRoot audio={audio} />
           <Box sx={{ flexGrow: 3 }} />

@@ -14,6 +14,7 @@ import TrackDurationProgress from "../../../GlobalComponents/Player/PlayerCompon
 import { useTypedSelector } from "../../../../hooks/typedHooks/useTypedSelector";
 import { transforTrackDuration } from "../../../../tools/playerTools";
 import { getActiveTrackUUID, getPlayerPaused } from "../../../../store/selectors/playerSelectors";
+import TrackDuration from "../../../GlobalComponents/Player/PlayerComponents/TrackProgress/TrackDuration";
 
 interface ITrackItemProps {
   track: ITrack;
@@ -63,10 +64,10 @@ const TrackItem: React.FC<ITrackItemProps> = ({
             <Box mr={2}>
               {isActive
                 ? (
-                  <TrackDurationProgress duration={track.duration || 0} />
+                  <TrackDurationProgress duration={track.duration} />
                 )
                 : (
-                  transforTrackDuration(track.duration || 0)
+                  <TrackDuration duration={track.duration} />
                 )}
             </Box>
             <DeleteTrackWrapper

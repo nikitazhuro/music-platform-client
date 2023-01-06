@@ -1,7 +1,7 @@
 import { Box } from '@mui/material';
 
-import { currentTrackTime, transforTrackDuration } from '../../../../../tools/playerTools/index';
-import { useTypedSelector } from "../../../../../hooks/typedHooks/useTypedSelector"
+import TrackCurrentTime from './TrackCurrentTime';
+import TrackDuration from './TrackDuration';
 
 interface ITrackDurationProgressProps {
   duration?: number;
@@ -10,13 +10,13 @@ interface ITrackDurationProgressProps {
 const TrackDurationProgress: React.FC<ITrackDurationProgressProps> = ({
   duration,
 }) => {
-  const { duration: storeDuration, currentTime: time } = useTypedSelector(state => state.player)
-
   return (
-    <Box>
-      {currentTrackTime(time)}
-      {' / '}
-      {transforTrackDuration(duration || storeDuration)}
+    <Box display="flex">
+      <TrackCurrentTime />
+      <Box mx={0.5}>
+        /
+      </Box>
+      <TrackDuration duration={duration} />
     </Box>
   )
 }
