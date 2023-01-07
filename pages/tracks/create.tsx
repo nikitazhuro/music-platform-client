@@ -1,4 +1,4 @@
-import { Button, Card, Grid, TextField, Box } from "@mui/material";
+import { Card, Grid, TextField, Box } from "@mui/material";
 import React, { useState } from 'react';
 import { useRouter } from "next/router";
 
@@ -7,11 +7,16 @@ import classes from '../../styles/trackCreatePage.module.scss';
 import StepsWrapper from "../../components/PagesComponents/CreateTrackPage/StepsWrapper";
 import NavBarWithPlayerLayout from "../../components/Layouts/NavBarWithPlayerLayout";
 import CreatePageControls from "../../components/PagesComponents/CreateTrackPage/CreatePageControls";
-import FileUploader from "../../components/UI/FileUploader";
 
 import { useCreateTrackMutation } from "../../API/tracksAPI";
 import LoadImageStep from "../../components/PagesComponents/CreateTrackPage/CreateTrackStepsContent/LoadImageStep";
 import LoadAudioStep from "../../components/PagesComponents/CreateTrackPage/CreateTrackStepsContent/LoadAudioStep";
+
+export interface ITrackInputData {
+  name: string;
+  artist: string;
+  duration: string;
+}
 
 function TrackCreatePage() {
   const router = useRouter();
@@ -19,7 +24,7 @@ function TrackCreatePage() {
   const [createTrackRequest] = useCreateTrackMutation();
 
   const [activeStep, setActiveStep] = React.useState<number>(0)
-  const [trackInputData, setTrackInputData] = useState({
+  const [trackInputData, setTrackInputData] = useState<ITrackInputData>({
     name: '',
     artist: '',
     duration: '',
@@ -38,25 +43,6 @@ function TrackCreatePage() {
 
     await createTrackRequest(formData)
       .then(() => router.push('/tracks'));
-  }
-
-  const readAudio = (file: any) => {
-    setAudio(file)
-    let reader = new FileReader();
-
-    if (file) {
-      let audio = new Audio();
-
-      reader.onload = (e) => {
-        audio.src = e.target?.result as string;
-
-        audio.onloadedmetadata = () => {
-          setTrackInputData((prev) => ({ ...prev, duration: audio.duration.toString() }));
-        }
-      }
-
-      reader.readAsDataURL(file);
-    }
   }
 
   return (
@@ -82,10 +68,10 @@ function TrackCreatePage() {
               </Box>
             )}
             {activeStep === 1 && (
-              <LoadImageStep />
+              <LoadImageStep setImage={setImage} />
             )}
             {activeStep === 2 && (
-              <LoadAudioStep />
+              <LoadAudioStep setTrackInputData={setTrackInputData} setAudio={setAudio} />
             )}
             <CreatePageControls
               createTrack={createTrack}

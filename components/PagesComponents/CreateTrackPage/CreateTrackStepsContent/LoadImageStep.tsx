@@ -1,10 +1,16 @@
 import { Box, Button } from "@mui/material";
 import Image from "next/image";
-import { useState } from "react";
+import React, { useState } from "react";
+
 import FileUploader from "../../../UI/FileUploader";
 
-const LoadImageStep: React.FC = () => {
-  const [image, setImage] = useState('');
+interface ILoadImageStepProps {
+  setImage: React.Dispatch<React.SetStateAction<string>>
+}
+
+const LoadImageStep: React.FC<ILoadImageStepProps> = ({
+  setImage,
+}) => {
   const [imageBlob, setImageBlob] = useState('');
 
   const loadAnImage = (image: any) => {
