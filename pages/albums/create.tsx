@@ -1,40 +1,28 @@
 import { Card, Grid } from "@mui/material";
 import React, { useState } from 'react';
-import { useRouter } from "next/router";
 
-import classes from '../../styles/trackCreatePage.module.scss';
+import classes from '../../styles/albumCreatePage.module.scss';
 
 import NavBarWithPlayerLayout from "../../components/Layouts/NavBarWithPlayerLayout";
+import CreateAlbumForm from "../../components/PagesComponents/CreateAlbumPage/CreateAlbumForm";
+import CreateAlbumControls from "../../components/PagesComponents/CreateAlbumPage/CreateAlbumControls";
 
-import { useCreateTrackMutation } from "../../API/tracksAPI";
 import { IAlbumCreateDto } from "../../types/album";
 
 function TrackCreatePage() {
-  const router = useRouter();
-
-  const [createTrackRequest] = useCreateTrackMutation();
-
-  const [trackInputData, setTrackInputData] = useState<IAlbumCreateDto>({
+  const [albumInputData, setAlbumInputData] = useState<IAlbumCreateDto>({
     name: '',
     description: '',
     image: '',
   })
 
-  const createTrack = async () => {
-    const formData = new FormData();
-
-    formData.append('name', trackInputData.name);
-    formData.append('description', trackInputData.description);
-    formData.append('image', trackInputData.image);
-
-    await createTrackRequest(formData)
-      .then(() => router.push('/tracks'));
-  }
-
   return (
     <NavBarWithPlayerLayout>
-      <Grid className={classes.trackCreatePage}>
-        awdawdawd
+      <Grid className={classes.albumCreatePage}>
+        <Card className={classes.mainCard}>
+          <CreateAlbumForm albumInputData={albumInputData} setAlbumInputData={setAlbumInputData} />
+          <CreateAlbumControls albumInputData={albumInputData} />
+        </Card>
       </Grid>
     </NavBarWithPlayerLayout>
   )

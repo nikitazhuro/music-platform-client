@@ -3,7 +3,7 @@ import { HYDRATE } from 'next-redux-wrapper'
 
 import { IAlbumDeleteDto } from '../types/album';
 
-export const tracksAPI = createApi({
+export const albumsAPI = createApi({
   reducerPath: 'albums',
   baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:3001/albums' }),
   extractRehydrationInfo(action, { reducerPath }) {
@@ -44,4 +44,4 @@ export const {
   useDeleteAlbumMutation,
   useGetAlbumQuery,
   useGetAlbumsQuery,
-} = tracksAPI;
+} = albumsAPI;

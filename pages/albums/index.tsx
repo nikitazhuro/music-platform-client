@@ -5,7 +5,7 @@ import classes from '../../styles/albumsPage.module.scss';
 
 import NavBarWithPlayerLayout from "../../components/Layouts/NavBarWithPlayerLayout";
 import AlbumsCardHeader from "../../components/PagesComponents/AlbumsPage/AlbumsCard/AlbumsCardHeader";
-import TracksCardHeader from "../../components/PagesComponents/TracksPage/TracksCard/TracksCardHeader";
+import AlbumsList from "../../components/PagesComponents/AlbumsPage/AlbumsCard/AlbumsList";
 
 const AlbumsPage: React.FC = () => {
   return (
@@ -17,7 +17,7 @@ const AlbumsPage: React.FC = () => {
         <Card className={classes.albumsCardHeader}>
           <AlbumsCardHeader />
           <hr />
-          {/* <TracksList /> */}
+          <AlbumsList />
         </Card>
       </NavBarWithPlayerLayout>
     </>

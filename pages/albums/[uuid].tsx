@@ -9,8 +9,8 @@ import NavBarWithPlayerLayout from "../../components/Layouts/NavBarWithPlayerLay
 import GoBackBlock from "../../components/PagesComponents/TrackPage/GoBackBlock";
 
 import { wrapper } from '../../store';
-import { tracksAPI } from '../../API/tracksAPI';
 import { IAlbum } from '../../types/album';
+import { albumsAPI } from '../../API/albumsAPI';
 
 
 interface IAlbumPageProps {
@@ -57,11 +57,11 @@ export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps
 
   const dispatch = store.dispatch as NextDispatch;
 
-  const { data } = await dispatch(tracksAPI.endpoints.getTrack.initiate(uuid as string))
+  const { data } = await dispatch(albumsAPI.endpoints.getAlbum.initiate(uuid as string))
 
   return {
     props: {
-      track: data,
+      album: data,
     }
   };
 });
