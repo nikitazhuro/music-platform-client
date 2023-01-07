@@ -3,33 +3,33 @@ import { useState } from "react";
 
 import FileUploader from "../../../UI/FileUploader";
 
-import { ITrackInputData } from "../../../../pages/tracks/create";
+import { ITrackCreateDto } from "../../../../types/track";
 
 interface ILoadAudioStepProps {
-  setAudio: React.Dispatch<React.SetStateAction<string>>;
-  setTrackInputData: React.Dispatch<React.SetStateAction<ITrackInputData>>;
+  setTrackInputData: React.Dispatch<React.SetStateAction<ITrackCreateDto>>;
 }
 
 const LoadAudioStep: React.FC<ILoadAudioStepProps> = ({
-  setAudio,
   setTrackInputData,
 }) => {
-  const [audioBlob, setAudioBlob] = useState('');
+  const [audioBlob, setAudioBlob] = useState<string>('');
 
   const readAudio = (file: any) => {
     setAudioBlob(URL.createObjectURL(file));
-    setAudio(file)
-
-    let reader = new FileReader();
 
     if (file) {
+      let reader = new FileReader();
       let audio = new Audio();
 
       reader.onload = (e) => {
         audio.src = e.target?.result as string;
 
         audio.onloadedmetadata = () => {
-          setTrackInputData((prev) => ({ ...prev, duration: audio.duration.toString() }));
+          setTrackInputData((prev) => ({
+            ...prev,
+            duration: audio.duration.toString(),
+            audio: file,
+          }));
         }
       }
 

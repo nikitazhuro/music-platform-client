@@ -22,4 +22,7 @@ export interface ITrackDeleteDto {
 export interface ITrackCreateDto {
   name: string;
   artist: string;
+  duration: string;
+  image: string;
+  audio: string;
 }

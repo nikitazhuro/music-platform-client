@@ -4,17 +4,19 @@ import React, { useState } from "react";
 
 import FileUploader from "../../../UI/FileUploader";
 
+import { ITrackCreateDto } from "../../../../types/track";
+
 interface ILoadImageStepProps {
-  setImage: React.Dispatch<React.SetStateAction<string>>
+  setTrackInputData: React.Dispatch<React.SetStateAction<ITrackCreateDto>>
 }
 
 const LoadImageStep: React.FC<ILoadImageStepProps> = ({
-  setImage,
+  setTrackInputData,
 }) => {
-  const [imageBlob, setImageBlob] = useState('');
+  const [imageBlob, setImageBlob] = useState<string>('');
 
   const loadAnImage = (image: any) => {
-    setImage(image)
+    setTrackInputData((prev) => ({ ...prev, image }))
     setImageBlob(URL.createObjectURL(image));
   }
 

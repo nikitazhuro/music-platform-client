@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { HYDRATE } from 'next-redux-wrapper'
 
-import { ITrackCreateDto, ITrackDeleteDto } from './../types/track';
+import { ITrackDeleteDto } from './../types/track';
 
 export const tracksAPI = createApi({
   reducerPath: 'tracks',
@@ -21,7 +21,7 @@ export const tracksAPI = createApi({
       query: (uuid: string) => `/${uuid}`
     }),
     createTrack: build.mutation({
-      query: (body: ITrackCreateDto) => ({
+      query: (body: FormData) => ({
         url: '/create',
         method: 'POST',
         body,

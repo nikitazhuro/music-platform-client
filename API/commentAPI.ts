@@ -4,7 +4,7 @@ import { ICommentDto } from "../types/comment";
 
 export const commentAPI = createApi({
   reducerPath: 'commentAPI',
-  baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:3001/comment'}),
+  baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:3001/comment' }),
   tagTypes: ['Comment'],
   endpoints: (builder) => ({
     createComment: builder.mutation({
