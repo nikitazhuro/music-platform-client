@@ -17,7 +17,8 @@ import { MusicNote } from '@mui/icons-material';
 
 const pages = [
   { title: 'Main', href: '/' },
-  { title: 'Tracks', href: '/tracks' }
+  { title: 'Tracks', href: '/tracks' },
+  { title: 'Albums', href: '/albums' }
 ]
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
