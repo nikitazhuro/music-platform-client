@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { HYDRATE } from 'next-redux-wrapper'
 
-import { IAlbumDeleteDto } from '../types/album';
+import { IAlbumDeleteDto, IAlbumUpdateTrack } from '../types/album';
 
 export const albumsAPI = createApi({
   reducerPath: 'albums',
@@ -18,12 +18,21 @@ export const albumsAPI = createApi({
       providesTags: ['Album'],
     }),
     getAlbum: build.query({
-      query: (uuid: string) => `/${uuid}`
+      query: (uuid: string) => `/${uuid}`,
+      providesTags: ['Album'],
     }),
     createAlbum: build.mutation({
       query: (body: FormData) => ({
         url: '/create',
         method: 'POST',
+        body,
+      }),
+      invalidatesTags: ['Album'],
+    }),
+    updateAlbumTracks: build.mutation({
+      query: (body: IAlbumUpdateTrack) => ({
+        url: '/',
+        method: 'PUT',
         body,
       }),
       invalidatesTags: ['Album'],
@@ -41,6 +50,7 @@ export const albumsAPI = createApi({
 
 export const {
   useCreateAlbumMutation,
+  useUpdateAlbumTracksMutation,
   useDeleteAlbumMutation,
   useGetAlbumQuery,
   useGetAlbumsQuery,

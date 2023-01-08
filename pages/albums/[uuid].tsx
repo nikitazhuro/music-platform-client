@@ -12,6 +12,8 @@ import { wrapper } from '../../store';
 import { IAlbum } from '../../types/album';
 import { albumsAPI } from '../../API/albumsAPI';
 import AlbumPageContent from '../../components/PagesComponents/AlbumPage/AlbumPageContent';
+import { useEffect } from 'react';
+import { useActions } from '../../hooks/useActions';
 
 
 interface IAlbumPageProps {
@@ -23,8 +25,6 @@ interface IAlbumPageQuery {
 }
 
 function TrackPage({ album }: IAlbumPageProps) {
-  console.log(album);
-
   return (
     <>
       <Head>

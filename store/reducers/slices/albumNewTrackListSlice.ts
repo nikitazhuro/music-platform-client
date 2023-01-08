@@ -12,6 +12,9 @@ const albumNewTrackListSlice = createSlice({
   name: 'albumNewTrackListSlice',
   initialState,
   reducers: {
+    setDefaultAlbumTracks: (state, action: PayloadAction<(string | void)[]>) => {
+      state.currentTracksUUIDsList = action.payload;
+    },
     addTrack: (state, action: PayloadAction<string, string>) => {
       state.currentTracksUUIDsList = [...state.currentTracksUUIDsList, action.payload]
     },

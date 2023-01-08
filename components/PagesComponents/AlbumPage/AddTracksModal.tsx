@@ -1,6 +1,7 @@
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from "@mui/material";
 import React from "react";
 import TracksList from "../TracksPage/TracksCard/TracksList";
+import AddTracksModalActions from "./AddTracksModalActions";
 
 interface IAddTracksModalProps {
   isModalOpen: boolean;
@@ -37,9 +38,7 @@ const AddTracksModal: React.FC<IAddTracksModalProps> = ({
         </DialogContentText>
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleClose} autoFocus>
-          Add tracks
-        </Button>
+        <AddTracksModalActions handleClose={handleClose} />
       </DialogActions>
     </Dialog>
   )

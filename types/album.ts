@@ -20,3 +20,8 @@ export interface IAlbumDeleteDto {
   uuid: string;
   image: string;
 }
+
+export interface IAlbumUpdateTrack {
+  trackList: Array<string | void>;
+  albumUUID: string;
+}

@@ -1,8 +1,10 @@
 import { Add, Remove } from "@mui/icons-material";
-import { useSelector } from "react-redux";
+
+import CustomIconButton from "../../../UI/IconButton/CustomIconButton";
+
 import { useActions } from "../../../../hooks/useActions";
 import { getActiveAlbumTracksUUIDs } from "../../../../store/selectors/newAlbumTracksSelectors";
-import CustomIconButton from "../../../UI/IconButton/CustomIconButton";
+import { useTypedSelector } from "../../../../hooks/typedHooks/useTypedSelector";
 
 interface IAddToAlbumWrapperProps {
   trackUUID: string;
@@ -11,7 +13,8 @@ interface IAddToAlbumWrapperProps {
 const AddToAlbumWrapper: React.FC<IAddToAlbumWrapperProps> = ({
   trackUUID,
 }) => {
-  const activeAlbumTracksUUIDs = useSelector(getActiveAlbumTracksUUIDs);
+  const activeAlbumTracksUUIDs = useTypedSelector(getActiveAlbumTracksUUIDs);
+
   const {
     addTrack,
     removeTrack,
@@ -26,6 +29,7 @@ const AddToAlbumWrapper: React.FC<IAddToAlbumWrapperProps> = ({
       addTrack(trackUUID);
     }
   }
+
   return (
     <CustomIconButton onClick={clickHandler} size="small">
       {isTrackIncludes
