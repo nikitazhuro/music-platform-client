@@ -5,6 +5,8 @@ export interface IAlbum {
   name: string;
   image: string;
   description: string;
+  updatedAt: string;
+  createdAt: string;
   tracks?: Array<ITrack>;
 }
 

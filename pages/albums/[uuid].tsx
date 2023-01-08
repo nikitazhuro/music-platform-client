@@ -11,6 +11,7 @@ import GoBackBlock from "../../components/PagesComponents/TrackPage/GoBackBlock"
 import { wrapper } from '../../store';
 import { IAlbum } from '../../types/album';
 import { albumsAPI } from '../../API/albumsAPI';
+import AlbumPageContent from '../../components/PagesComponents/AlbumPage/AlbumPageContent';
 
 
 interface IAlbumPageProps {
@@ -22,6 +23,8 @@ interface IAlbumPageQuery {
 }
 
 function TrackPage({ album }: IAlbumPageProps) {
+  console.log(album);
+
   return (
     <>
       <Head>
@@ -29,19 +32,9 @@ function TrackPage({ album }: IAlbumPageProps) {
       </Head>
       <NavBarWithPlayerLayout>
         <Grid mb={2} className={classes.trackPage}>
-          <GoBackBlock />
+          <GoBackBlock path='/albums' />
         </Grid>
-        <Card>
-          {/* <Box p={3}>
-            <TrackPageHeader track={album} />
-          </Box>
-          <Box p={3}>
-            <CreateCommentWrapper />
-          </Box>
-          <Box p={3}>
-            <CommentsBlock />
-          </Box> */}
-        </Card>
+        <AlbumPageContent album={album} />
       </NavBarWithPlayerLayout>
     </>
   )
