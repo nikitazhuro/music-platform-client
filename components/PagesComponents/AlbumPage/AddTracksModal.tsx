@@ -1,10 +1,14 @@
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from "@mui/material";
 import React from "react";
+import TracksList from "../TracksPage/TracksCard/TracksList";
 
 interface IAddTracksModalProps {
   isModalOpen: boolean;
   setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
+
+const hiddenElements = ['deleteTrackBtn'];
+const disabledEvents = ['goToTrackPage'];
 
 const AddTracksModal: React.FC<IAddTracksModalProps> = ({
   isModalOpen,
@@ -16,25 +20,25 @@ const AddTracksModal: React.FC<IAddTracksModalProps> = ({
 
   return (
     <Dialog
+      fullWidth
       open={isModalOpen}
       onClose={handleClose}
       aria-labelledby="responsive-dialog-title"
     >
       <DialogTitle id="responsive-dialog-title">
-        {"Use Google's location service?"}
+        {"Select tracks for adding"}
       </DialogTitle>
       <DialogContent>
         <DialogContentText>
-          Let Google help apps determine location. This means sending anonymous
-          location data to Google, even when no apps are running.
+          <TracksList
+            hiddenElements={hiddenElements}
+            disabledEvents={disabledEvents}
+          />
         </DialogContentText>
       </DialogContent>
       <DialogActions>
-        <Button autoFocus onClick={handleClose}>
-          Disagree
-        </Button>
         <Button onClick={handleClose} autoFocus>
-          Agree
+          Add tracks
         </Button>
       </DialogActions>
     </Dialog>

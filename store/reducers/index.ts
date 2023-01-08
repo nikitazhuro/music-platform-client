@@ -7,9 +7,11 @@ import { commentAPI } from "../../API/commentAPI";
 
 //SLICES
 import playerSlice from "./slices/playerSlice";
+import albumNewTrackListSlice from "./slices/albumNewTrackListSlice";
 
 export const reducer = combineReducers({
   player: playerSlice,
+  newAlbumsTracks: albumNewTrackListSlice,
   [tracksAPI.reducerPath]: tracksAPI.reducer,
   [commentAPI.reducerPath]: commentAPI.reducer,
   [albumsAPI.reducerPath]: albumsAPI.reducer,

@@ -15,13 +15,18 @@ import { useTypedSelector } from "../../../../hooks/typedHooks/useTypedSelector"
 import { transforTrackDuration } from "../../../../tools/playerTools";
 import { getActiveTrackUUID, getPlayerPaused } from "../../../../store/selectors/playerSelectors";
 import TrackDuration from "../../../GlobalComponents/Player/PlayerComponents/TrackProgress/TrackDuration";
+import AddToAlbumWrapper from "./AddToAlbumWrapper";
 
 interface ITrackItemProps {
   track: ITrack;
+  disabledEvents?: Array<string>;
+  hiddenElements?: Array<string>;
 }
 
 const TrackItem: React.FC<ITrackItemProps> = ({
   track,
+  disabledEvents,
+  hiddenElements,
 }) => {
   const router = useRouter();
 
@@ -41,8 +46,14 @@ const TrackItem: React.FC<ITrackItemProps> = ({
       setActiveTrack(track)
     }
   }
+
+  const goToTrackPage = () => {
+    if (!disabledEvents?.includes('goToTrackPage')) {
+      router.push('/tracks/' + track.uuid)
+    }
+  }
   return (
-    <Card onClick={() => router.push('/tracks/' + track.uuid)}>
+    <Card onClick={goToTrackPage}>
       <Box p={1}>
         <Grid container flexDirection="row" alignItems="center" justifyContent="space-between">
           <Box display="flex" alignItems="center">
@@ -70,11 +81,16 @@ const TrackItem: React.FC<ITrackItemProps> = ({
                   <TrackDuration duration={track.duration} />
                 )}
             </Box>
-            <DeleteTrackWrapper
-              trackUUID={track.uuid}
-              image={track.image}
-              audio={track.audio}
-            />
+            {!hiddenElements?.includes('deleteTrackBtn') && (
+              <DeleteTrackWrapper
+                trackUUID={track.uuid}
+                image={track.image}
+                audio={track.audio}
+              />
+            )}
+            {!hiddenElements?.includes('addToAlbumBtn') && (
+              <AddToAlbumWrapper trackUUID={track.uuid} />
+            )}
           </Box>
         </Grid>
       </Box>
