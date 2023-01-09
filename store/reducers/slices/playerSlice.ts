@@ -21,7 +21,7 @@ const playerSlice = createSlice({
   name: 'playerSlice',
   initialState,
   reducers: {
-    setActiveTrack: (state: IPlayerState, action: PayloadAction<ITrack, string>) => {
+    setActiveTrack: (state: IPlayerState, action: PayloadAction<ITrack | null, string>) => {
       state.activeTrack = action.payload
     },
     setPaused: (state: IPlayerState, action: PayloadAction<boolean, string>) => {

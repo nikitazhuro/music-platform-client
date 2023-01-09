@@ -31,8 +31,8 @@ export const albumsAPI = createApi({
     }),
     updateAlbumTracks: build.mutation({
       query: (body: IAlbumUpdateTrack) => ({
-        url: '/',
-        method: 'PUT',
+        url: `/${body.albumUUID}`,
+        method: 'PATCH',
         body,
       }),
       invalidatesTags: ['Album'],
@@ -50,8 +50,10 @@ export const albumsAPI = createApi({
 
 export const {
   useCreateAlbumMutation,
+  useLazyGetAlbumQuery,
   useUpdateAlbumTracksMutation,
   useDeleteAlbumMutation,
   useGetAlbumQuery,
   useGetAlbumsQuery,
+  util: { getRunningQueriesThunk },
 } = albumsAPI;

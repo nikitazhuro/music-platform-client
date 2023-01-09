@@ -7,6 +7,7 @@ import NavBarWithPlayerLayout from "../../components/Layouts/NavBarWithPlayerLay
 import TracksCardHeader from "../../components/PagesComponents/TracksPage/TracksCard/TracksCardHeader";
 import TracksList from "../../components/PagesComponents/TracksPage/TracksCard/TracksList";
 
+const hiddenElements = ['addToAlbumBtn'];
 
 function TracksPage() {
   return (
@@ -18,7 +19,7 @@ function TracksPage() {
         <Card className={classes.TracksCard}>
           <TracksCardHeader />
           <hr />
-          <TracksList />
+          <TracksList hiddenElements={hiddenElements} />
         </Card>
       </NavBarWithPlayerLayout>
     </>

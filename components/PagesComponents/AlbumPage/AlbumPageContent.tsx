@@ -1,43 +1,51 @@
 import { Box, Card } from "@mui/material";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
 
+import TracksList from "../TracksPage/TracksCard/TracksList";
 import AlbumPageHeader from "./AlbumPageHeader";
 
-import { IAlbum } from "../../../types/album";
-import { useGetAlbumQuery } from "../../../API/albumsAPI";
-import { useRouter } from "next/router";
+import { useLazyGetAlbumQuery } from "../../../API/albumsAPI";
 import { useActions } from "../../../hooks/useActions";
-import { useEffect } from "react";
-import TracksList from "../TracksPage/TracksCard/TracksList";
 import { ITrack } from "../../../types/track";
 
-interface IAlbumPageContentProps {
-  album: IAlbum;
-}
+const hiddenElements = ['addToAlbumBtn', 'deleteTrackBtn'];
 
-const AlbumPageContent: React.FC<IAlbumPageContentProps> = ({
-  album,
-}) => {
+const AlbumPageContent: React.FC = () => {
   const router = useRouter();
 
   const { setDefaultAlbumTracks } = useActions();
 
-  const { data = {} } = useGetAlbumQuery(router.query.uuid as string);
+  const [fetchAlbum, { data = [], isLoading }] = useLazyGetAlbumQuery();
 
   useEffect(() => {
-    const tracksUUID = data.tracks?.map((elem: ITrack) => elem.uuid) || [];
+    if (data) {
+      const tracksUUID = data?.tracks?.map((elem: ITrack) => elem.uuid) || [];
 
-    setDefaultAlbumTracks(tracksUUID);
+      setDefaultAlbumTracks(tracksUUID);
+    }
   }, [data]);
+
+  useEffect(() => {
+    if (router.query.uuid) {
+      fetchAlbum(router.query.uuid as string);
+    }
+  }, [router.query.uuid])
 
   return (
     <Card>
-      <Box p={2}>
-        <AlbumPageHeader album={data} />
-        <Box my={2}>
-          <hr />
+      {!isLoading && (
+        <Box p={2}>
+          <AlbumPageHeader album={data} />
+          <Box my={2}>
+            <hr />
+          </Box>
+          <TracksList
+            customData={data?.tracks || []}
+            hiddenElements={hiddenElements}
+          />
         </Box>
-        <TracksList customData={data.tracks || []} />
-      </Box>
+      )}
     </Card>
   )
 }

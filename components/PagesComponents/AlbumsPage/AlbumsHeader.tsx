@@ -1,7 +1,7 @@
 import { Box, Button, Grid } from "@mui/material";
 import { useRouter } from "next/router";
 
-import HeaderTitle from "../../../UI/Title/HeaderTitle";
+import HeaderTitle from "../../UI/Title/HeaderTitle";
 
 function AlbumsCardHeader() {
   const router = useRouter();

@@ -1,8 +1,10 @@
 import { Box, Button, TextField } from "@mui/material";
 import Image from "next/image";
 import React, { useState } from "react";
-import { IAlbumCreateDto } from "../../../types/album";
+
 import FileUploader from "../../UI/FileUploader";
+
+import { IAlbumCreateDto } from "../../../types/album";
 
 interface ICreateAlbumFormProps {
   setAlbumInputData: React.Dispatch<React.SetStateAction<IAlbumCreateDto>>;

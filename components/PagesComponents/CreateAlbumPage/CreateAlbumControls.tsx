@@ -1,5 +1,6 @@
-import { Box, Button, Grid } from "@mui/material";
+import { Button, Grid } from "@mui/material";
 import { useRouter } from "next/router";
+
 import { useCreateAlbumMutation } from "../../../API/albumsAPI";
 import { IAlbumCreateDto } from "../../../types/album";
 
