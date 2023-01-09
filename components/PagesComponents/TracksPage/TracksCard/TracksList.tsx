@@ -4,11 +4,18 @@ import TrackItem from "../TrackItem/TrackItem";
 
 import { ITrack } from "../../../../types/track";
 import { useGetTracksQuery } from "../../../../API/tracksAPI";
-import { useTypedSelector } from "../../../../hooks/typedHooks/useTypedSelector";
-import { getActiveTrackUUID } from "../../../../store/selectors/playerSelectors";
 
+interface ITrackListProps {
+  customData?: Array<ITrack>
+  disabledEvents?: Array<string>;
+  hiddenElements?: Array<string>;
+}
 
-function TracksList() {
+const TracksList: React.FC<ITrackListProps> = ({
+  customData,
+  disabledEvents = [],
+  hiddenElements = [],
+}) => {
   const { data = [], isLoading } = useGetTracksQuery('');
 
   return (
@@ -19,9 +26,11 @@ function TracksList() {
             <CircularProgress />
           </Box>)
         : (
-          data.map((track: ITrack) => (
+          (customData || data).map((track: ITrack) => (
             <Box p={2} key={track.uuid}>
               <TrackItem
+                disabledEvents={disabledEvents}
+                hiddenElements={hiddenElements}
                 track={track}
               />
             </Box>

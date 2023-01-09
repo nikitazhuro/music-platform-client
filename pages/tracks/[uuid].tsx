@@ -32,7 +32,7 @@ function TrackPage({ track }: ITrackPageProps) {
       </Head>
       <NavBarWithPlayerLayout>
         <Grid mb={2} className={classes.trackPage}>
-          <GoBackBlock />
+          <GoBackBlock path='/tracks' />
         </Grid>
         <Card>
           <Box p={3}>
